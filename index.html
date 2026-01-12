@@ -3,131 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VIBE FX // STREET PORTAL</title>
+    <title>VIBE FX // NEW_CARDS_PORTAL</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
     <style>
         :root {
-            --hazard-yellow: #FFD700;
-            --neon-blue: #00FFFF;
-            --deep-black: #050505;
+            --neon-blue: #00CCFF;
+            --neon-pink: #FF00FF;
+            --hazard-yellow: #FFFF00;
         }
 
         body { 
-            background-color: var(--deep-black);
-            /* Grunge texture overlay */
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.15'/%3E%3C/svg%3E");
+            background: #0b0b0b; 
             color: #fff; 
             font-family: 'Permanent Marker', cursive;
+            background-image: radial-gradient(circle, #1a1a1a 1px, transparent 1px);
+            background-size: 25px 25px;
             overflow-x: hidden;
-            min-height: 100vh;
         }
 
-        /* 1. THE HEADER IMAGE (Your specific sketch) */
-        .brand-header-img {
-            max-width: 100%;
-            height: auto;
-            /* Drop shadow to make the paint pop off the dark background */
-            filter: drop-shadow(0px 0px 20px rgba(0, 255, 255, 0.15));
-            transition: transform 0.3s ease;
-        }
-        .brand-header-img:hover {
-            transform: scale(1.02);
-            filter: drop-shadow(0px 0px 30px rgba(0, 255, 255, 0.4));
+        /* VIBE FX LOGO STYLE */
+        .vibe-header {
+            font-size: clamp(3rem, 12vw, 8rem);
+            color: #fff;
+            text-shadow: 
+                -3px -3px 0px #000, 
+                3px -3px 0px #000, 
+                -3px 3px 0px #000, 
+                3px 3px 0px #000,
+                0px 6px 0px var(--neon-blue);
+            line-height: 1;
+            letter-spacing: -2px;
         }
 
-        /* 2. THE HAZARD CARD FRAMES */
-        .hazard-frame {
-            border: 8px solid var(--hazard-yellow);
+        .portal-link {
+            border: 4px solid var(--neon-blue);
             background: #000;
-            padding: 0; /* No padding, image hits the edge */
+            padding: 10px 30px;
+            transform: skewX(-12deg);
+            box-shadow: 6px 6px 0px var(--neon-blue);
+            transition: 0.2s;
+        }
+        .portal-link:hover {
+            background: var(--neon-blue);
+            color: #000;
+            box-shadow: -4px -4px 0px #fff;
+        }
+
+        /* CLEAN HAZARD FRAMES (No Internal Text) */
+        .hazard-card {
+            border: 10px solid var(--hazard-yellow);
+            background: #000;
             position: relative;
-            box-shadow: 12px 12px 0px rgba(0,0,0,0.8); /* Hard shadow */
-            transition: all 0.2s ease;
-            overflow: hidden;
+            box-shadow: 0 0 30px rgba(255, 255, 0, 0.2);
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            /* Slightly tilted for the "sketch" feel */
+            transform: rotate(-1deg);
+        }
+        .hazard-card:hover {
+            transform: scale(1.05) rotate(1deg);
+            box-shadow: 0 0 50px var(--neon-blue);
         }
 
-        .hazard-frame:hover {
-            transform: translate(-4px, -4px);
-            box-shadow: 16px 16px 0px var(--neon-blue);
-            border-color: #fff;
-            z-index: 10;
-        }
-
-        .hazard-frame img {
+        .hazard-card img {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
+            height: auto;
             display: block;
         }
 
-        /* 3. BUTTONS & UI */
-        .portal-btn {
-            background: #000;
-            color: #fff;
-            border: 3px solid var(--neon-blue);
-            padding: 12px 40px;
-            font-size: 1.4rem;
-            text-transform: uppercase;
-            transform: skewX(-10deg);
-            transition: 0.2s;
-            box-shadow: 5px 5px 0px var(--neon-blue);
-            display: inline-block;
-        }
-        .portal-btn:hover {
-            background: var(--neon-blue);
-            color: #000;
-            box-shadow: -5px -5px 0px #fff;
-        }
-
-        .footer-line {
-            width: 100%;
+        /* THE YELLOW DIVIDER */
+        .hazard-divider {
             height: 12px;
             background: repeating-linear-gradient(
-                45deg,
+                90deg,
                 var(--hazard-yellow),
-                var(--hazard-yellow) 20px,
-                #000 20px,
-                #000 40px
+                var(--hazard-yellow) 40px,
+                #000 40px,
+                #000 80px
             );
-            border-top: 2px solid #fff;
-            border-bottom: 2px solid #fff;
-            margin-bottom: 2rem;
+            width: 100%;
+            margin: 80px 0 20px 0;
         }
     </style>
 </head>
-<body class="p-6 md:p-10">
+<body class="p-4 md:p-12">
 
-    <header class="flex flex-col items-center justify-center mb-20 mt-6">
-        <div class="w-full max-w-xl">
-            <img src="sketch1756817760479.png" alt="VIBE FX BRAND ART" class="brand-header-img">
+    <header class="flex flex-col items-center text-center mb-24">
+        <div class="mb-4">
+            <h1 class="vibe-header italic">VIBE FX</h1>
+            <p class="text-yellow-400 text-xl md:text-2xl mt-[-10px]">@BRADENIZATION // 2026</p>
         </div>
         
-        <div class="mt-10">
-            <a href="https://vibechain.com/market/vibe-fx" target="_blank" class="portal-btn">ENTER PORTAL</a>
+        <div class="mt-8">
+            <a href="https://vibechain.com/market/vibe-fx" target="_blank" class="portal-link text-xl uppercase italic">Portal: Vibe.Market</a>
         </div>
     </header>
 
-    <main class="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 px-4">
+    <main class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12">
         
-        <div class="hazard-frame" style="transform: rotate(-1.5deg);">
-            <img src="https://vibechain.com/api/proxy?url=https%3A%2F%2Fwieldcd.net%2Fcdn-cgi%2Fimagedelivery%2Fg4iQ0bIzMZrjFMgjAnSGfw%2F6209276b-c6ed-4155-e438-14eeace31800%2Fw%3D600%2Cfit%3Dcontain%2Canim%3Dfalse" alt="Asset 1">
+        <div class="hazard-card">
+            <img src="sketch1756817760479.png" alt="Vibe FX Sketch">
         </div>
 
-        <div class="hazard-frame" style="transform: rotate(1deg); margin-top: 30px;">
-            <img src="https://vibechain.com/api/proxy?url=https%3A%2F%2Fwieldcd.net%2Fcdn-cgi%2Fimagedelivery%2Fg4iQ0bIzMZrjFMgjAnSGfw%2Fae43d88a-790e-479d-d70f-3580164abc00%2Fw%3D600%2Cfit%3Dcontain%2Canim%3Dfalse" alt="Asset 2">
+        <div class="hazard-card" style="transform: rotate(1.5deg);">
+            <img src="5c1e3caf-7051-4c70-abcd-9496ce9a0651.png" alt="Jesse Legendary Card">
         </div>
 
-        <div class="hazard-frame" style="transform: rotate(-2deg);">
-            <img src="https://vibechain.com/api/proxy?url=https%3A%2F%2Fwieldcd.net%2Fcdn-cgi%2Fimagedelivery%2Fg4iQ0bIzMZrjFMgjAnSGfw%2F0ac194d8-6950-4119-1540-75c42da0df00%2Fw%3D250%2Cfit%3Dcontain%2Canim%3Dfalse" alt="Asset 3">
+        <div class="hazard-card" style="transform: rotate(-1.5deg);">
+            <img src="vibefx (2).png" alt="Vibe FX New Cards">
         </div>
 
     </main>
 
-    <footer class="mt-32 text-center pb-10">
-        <div class="footer-line"></div>
-        <h2 class="text-3xl text-yellow-500 uppercase font-bold tracking-wide">Not for sale on this domain</h2>
-        <p class="text-zinc-500 text-xs tracking-[0.6em] uppercase mt-4">Powered by Base Chain // @Bradenization</p>
+    <footer class="text-center mt-32">
+        <div class="hazard-divider"></div>
+        <h2 class="text-2xl md:text-4xl text-yellow-400 uppercase italic mb-2">Not For Sale On This Domain</h2>
+        <p class="text-zinc-600 tracking-[0.6em] text-xs uppercase">Powered by Base Chain</p>
     </footer>
 
 </body>
