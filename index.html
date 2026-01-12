@@ -3,63 +3,108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VIBE FX // @Bradenization</title>
+    <title>VIBE FX // UNIDENTIFIED ASSETS</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Space+Grotesk:wght@300;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        body { background-color: #000; color: #fff; font-family: 'Space Grotesk', sans-serif; }
-        .vibe-font { font-family: 'Syncopate', sans-serif; text-transform: uppercase; letter-spacing: -0.05em; }
-        .border-vibe { border: 1px solid #222; }
-        .hover-vibe:hover { border-color: #fff; box-shadow: 0 0 20px rgba(255,255,255,0.1); }
-        .glitch-bg { background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('vbfxmythic007.png'); background-size: cover; background-attachment: fixed; }
-        .scanline { width: 100%; height: 2px; background: rgba(255,255,255,0.03); position: fixed; z-index: 100; pointer-events: none; animation: scan 8s linear infinite; }
-        @keyframes scan { 0% { top: 0; } 100% { top: 100%; } }
+        body { background-color: #000; color: #fff; font-family: 'Space Mono', monospace; }
+        .vibe-font { font-family: 'Syncopate', sans-serif; text-transform: uppercase; letter-spacing: -0.05em; font-style: italic; }
+        
+        /* The Industrial Frame - Based on your Pack Covers */
+        .pack-frame {
+            border: 2px solid #1a1a1a;
+            position: relative;
+            background: linear-gradient(145deg, #050505, #000);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .pack-frame:hover { border-color: #0052FF; transform: translateY(-5px); }
+        .pack-frame::before { content: 'S-05'; position: absolute; top: 10px; right: 10px; font-size: 8px; color: #333; font-weight: bold; }
+        
+        /* Corner Brackets */
+        .bracket { position: absolute; width: 10px; height: 10px; border: 2px solid #0052FF; }
+        .tl { top: -2px; left: -2px; border-right: none; border-bottom: none; }
+        .br { bottom: -2px; right: -2px; border-left: none; border-top: none; }
+
+        /* Slanted Logo Style */
+        .logo-text { filter: drop-shadow(0 0 8px rgba(0, 82, 255, 0.5)); }
     </style>
 </head>
-<body class="glitch-bg">
-    <div class="scanline"></div>
+<body class="bg-black text-white p-4 md:p-8">
 
-    <nav class="border-b border-vibe p-6 flex flex-col md:flex-row justify-between items-center bg-black/90 sticky top-0 z-50">
-        <div class="flex items-center gap-4">
-            <div class="w-12 h-12 bg-white flex items-center justify-center">
-                <span class="text-black font-black text-2xl vibe-font">FX</span>
+    <nav class="max-w-[1400px] mx-auto mb-20 flex flex-col md:flex-row justify-between items-end border-b border-white/5 pb-8">
+        <div class="flex items-center gap-6">
+            <img src="vibefxartrrrr.png" class="h-16 w-auto logo-text" alt="VIBE FX">
+            <div>
+                <h1 class="vibe-font text-4xl md:text-6xl italic leading-none">VIBE FX</h1>
+                <p class="text-[10px] text-blue-500 font-bold tracking-[0.5em] mt-2">AUTHENTICATED ON BASE</p>
             </div>
-            <h1 class="vibe-font text-3xl font-black italic">VIBE FX</h1>
         </div>
-        <div class="flex gap-6 mt-4 md:mt-0 text-[10px] font-bold tracking-[0.4em] uppercase">
-            <a href="https://x.com/Bradenization" target="_blank" class="hover:text-blue-500">X.COM/BRADENIZATION</a>
-            <a href="https://vibechain.com/market/vibe-fx" target="_blank" class="bg-white text-black px-4 py-1">MARKETPLACE</a>
+        <div class="mt-8 md:mt-0 flex gap-10 text-[10px] font-black tracking-widest uppercase">
+            <a href="https://x.com/Bradenization" target="_blank" class="hover:text-blue-500 transition">X_@BRADENIZATION</a>
+            <a href="https://vibechain.com/market/vibe-fx" target="_blank" class="text-white border-b-2 border-blue-600 pb-1">VIBE.MARKET</a>
         </div>
     </nav>
 
-    <section class="py-20 px-6 max-w-7xl mx-auto flex flex-col items-center">
-        <div class="border-vibe p-2 mb-8 inline-block">
-            <img src="vibefxartrrrr.png" class="w-48 h-auto" alt="Logo/Branding">
-        </div>
-        <h2 class="vibe-font text-5xl md:text-8xl text-center leading-none mb-4">VIBE<br>MARKET</h2>
-        <div class="h-1 w-32 bg-blue-600 mb-8"></div>
-        <p class="text-gray-500 uppercase tracking-widest text-xs text-center max-w-xl">Curated Digital FX Collection on Base. High-Fidelity Character Design. Bradenization Artist Series.</p>
-    </section>
-
-    <main class="max-w-7xl mx-auto px-6 pb-32">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1">
-            
-            <div class="border-vibe bg-black p-4 hover-vibe transition-all group">
-                <div class="relative overflow-hidden aspect-square border-vibe mb-4">
-                    <img src="VIBEFXJESSE001.png" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Jesse 001">
-                </div>
-                <div class="flex justify-between items-end">
-                    <div>
-                        <p class="text-[10px] text-blue-500 font-black">ID: 001</p>
-                        <h3 class="vibe-font text-xl">JESSE</h3>
-                    </div>
-                    <a href="https://vibechain.com/market/vibe-fx" class="text-[10px] border border-white/20 px-3 py-1 hover:bg-white hover:text-black transition">BUY</a>
-                </div>
+    <main class="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+        
+        <div class="pack-frame p-4 group">
+            <div class="bracket tl"></div><div class="bracket br"></div>
+            <div class="relative overflow-hidden aspect-square mb-6 border border-white/5">
+                <img src="VIBEFXJESSE001.png" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Jesse">
             </div>
-
-            <div class="border-vibe bg-black p-4 hover-vibe transition-all group">
-                <div class="relative overflow-hidden aspect-square border-vibe mb-4">
-                    <img src="vbfxmythic007.png" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Mythic 007">
+            <div class="flex justify-between items-end">
+                <div>
+                    <span class="text-[10px] text-zinc-600 font-bold uppercase">ID: 001 // CLASS: TACTICAL</span>
+                    <h3 class="vibe-font text-2xl mt-1 italic">JESSE</h3>
                 </div>
-                <div class="flex justify-between items-end">
-                    <div>
+                <a href="https://vibechain.com/market/vibe-fx" class="bg-blue-600 p-3 text-[10px] font-bold hover:bg-white hover:text-black transition">COLLECT</a>
+            </div>
+        </div>
+
+        <div class="pack-frame p-4 group">
+            <div class="bracket tl"></div><div class="bracket br"></div>
+            <div class="relative overflow-hidden aspect-square mb-6 border border-white/5">
+                <img src="vbfxmythic007.png" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Mythic">
+            </div>
+            <div class="flex justify-between items-end">
+                <div>
+                    <span class="text-[10px] text-zinc-600 font-bold uppercase">ID: 007 // CLASS: MYTHIC</span>
+                    <h3 class="vibe-font text-2xl mt-1 italic">VBFX_007</h3>
+                </div>
+                <a href="https://vibechain.com/market/vibe-fx" class="bg-blue-600 p-3 text-[10px] font-bold hover:bg-white hover:text-black transition">COLLECT</a>
+            </div>
+        </div>
+
+        <div class="pack-frame p-4 group">
+            <div class="bracket tl"></div><div class="bracket br"></div>
+            <div class="relative overflow-hidden aspect-square mb-6 border border-white/5">
+                <img src="vibefxouro34.png" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Ouro">
+            </div>
+            <div class="flex justify-between items-end">
+                <div>
+                    <span class="text-[10px] text-zinc-600 font-bold uppercase">ID: 034 // CLASS: OURO</span>
+                    <h3 class="vibe-font text-2xl mt-1 italic">OURO_FX</h3>
+                </div>
+                <a href="https://vibechain.com/market/vibe-fx" class="bg-blue-600 p-3 text-[10px] font-bold hover:bg-white hover:text-black transition">COLLECT</a>
+            </div>
+        </div>
+
+        <div class="lg:col-span-3 mt-20 border-t border-white/10 pt-20 flex flex-col items-center">
+            <img src="vibefxartrrrr.png" class="w-64 opacity-20 grayscale mb-12" alt="">
+            <div class="flex flex-wrap justify-center gap-12 opacity-40 text-[10px] font-black tracking-[0.5em] uppercase">
+                <span>Vibe FX Studio</span>
+                <span>Base Network</span>
+                <span>Drop_001</span>
+                <span>Market: Vibe.Market</span>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="mt-32 p-6 border border-white/10 text-[9px] text-zinc-700 flex justify-between uppercase tracking-widest">
+        <div>System: VIBE_FX_PORTAL // Ver: 2026.01</div>
+        <div>Created by @Bradenization</div>
+    </footer>
+
+</body>
+</html>
