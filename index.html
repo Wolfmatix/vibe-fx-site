@@ -3,133 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VIBE FX // GRIT & COMBAT</title>
+    <title>VIBE FX // IT PAYS TO DREAM</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Rubik+Mono+One&display=swap" rel="stylesheet">
     <style>
         body { 
-            background-color: #000; 
+            background: #000; 
             color: #fff; 
-            margin: 0;
-            overflow-x: hidden;
             font-family: 'Rubik Mono One', sans-serif;
-            /* Subtle grid overlay to match combat robot UI */
-            background-image: linear-gradient(rgba(18, 18, 18, 1) 1px, transparent 1px), 
-                              linear-gradient(90deg, rgba(18, 18, 18, 1) 1px, transparent 1px);
-            background-size: 30px 30px;
+            overflow-x: hidden;
+            /* Industrial Grid Background */
+            background-image: 
+                linear-gradient(rgba(20, 20, 20, 0.8) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(20, 20, 20, 0.8) 1px, transparent 1px);
+            background-size: 40px 40px;
         }
 
-        /* VIBE FX LOGO: White bubble, black stroke, red contour */
+        /* MAIN VIBE FX LOGO */
         .vibe-fx-logo {
-            font-size: clamp(3.5rem, 12vw, 6rem);
-            text-transform: uppercase;
+            font-size: clamp(3rem, 10vw, 5.5rem);
             color: white;
             -webkit-text-stroke: 2px #000;
-            filter: 
-                drop-shadow(4px 4px 0px #ff0000) 
-                drop-shadow(8px 8px 0px #000);
-            display: inline-block;
+            filter: drop-shadow(4px 4px 0px #ff0000) drop-shadow(8px 8px 0px #000);
             line-height: 0.9;
         }
 
-        /* SMALL VIBE.MARKET STICKER */
+        /* TINY MARKET STICKER */
         .market-tag {
             position: fixed;
-            top: 1rem;
-            right: 1rem;
+            top: 1.5rem;
+            right: 1.5rem;
             background: #fff;
             color: #000;
             padding: 4px 10px;
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             border: 2px solid #000;
-            transform: rotate(-2deg);
+            transform: rotate(2deg);
             z-index: 100;
-            letter-spacing: 1px;
-            font-weight: bold;
         }
 
-        /* COMBAT ROBOT FRAME */
-        .pack-art-container {
+        /* COMBAT FRAME */
+        .combat-frame {
             border: 10px solid #fff;
-            box-shadow: 20px 20px 0px #ff0000;
-            max-width: 480px;
-            width: 90%;
             position: relative;
+            box-shadow: 20px 20px 0px rgba(255, 0, 0, 0.2);
+            max-width: 420px;
         }
 
-        .pack-art-container::before {
-            content: "UNIT ID: VBFX-001";
-            position: absolute;
-            top: -30px;
-            left: 0;
-            font-size: 10px;
+        /* HUD ELEMENTS */
+        .hud-text {
+            font-size: 8px;
             color: #ff0000;
+            text-transform: uppercase;
             letter-spacing: 2px;
+            position: absolute;
         }
 
-        /* THE LINKED ACTION BUTTON */
-        .dream-link {
-            display: inline-block;
+        /* BUTTON: IT PAYS TO DREAM */
+        .dream-btn {
             background: #ccff00;
             color: #000;
-            padding: 1.5rem 4rem;
-            font-size: 1.8rem;
+            padding: 1.2rem 3rem;
+            font-size: 1.5rem;
             border: 4px solid #000;
-            box-shadow: 10px 10px 0px #ff00ff;
-            text-transform: uppercase;
+            box-shadow: 8px 8px 0px #ff00ff;
             text-decoration: none;
+            display: inline-block;
             transition: 0.1s;
-            margin-top: 3rem;
-            font-style: italic;
         }
-
-        .dream-link:hover {
-            transform: translate(-4px, -4px);
-            box-shadow: 14px 14px 0px #00ffff;
-        }
-
-        /* SCANLINE EFFECT */
-        .scanline {
-            width: 100%;
-            height: 100px;
-            z-index: 5;
-            background: linear-gradient(0deg, rgba(0, 0, 0, 0) 0%, rgba(255, 255, 255, 0.05) 50%, rgba(0, 0, 0, 0) 100%);
-            opacity: 0.1;
-            position: absolute;
-            bottom: 100%;
-            animation: scanline 10s linear infinite;
-        }
-
-        @keyframes scanline {
-            0% { bottom: 100%; }
-            100% { bottom: -100%; }
+        .dream-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 12px 12px 0px #00ffff;
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col items-center justify-between p-6">
-
-    <div class="scanline"></div>
+<body class="min-h-screen flex flex-col items-center justify-center p-6">
 
     <div class="market-tag">VIBE.MARKET</div>
 
-    <header class="w-full text-center mt-12 mb-8">
+    <header class="mb-12 text-center">
         <h1 class="vibe-fx-logo">VIBE FX</h1>
     </header>
 
-    <main class="flex flex-col items-center justify-center flex-grow">
-        <div class="pack-art-container">
+    <main class="flex flex-col items-center">
+        <div class="combat-frame">
+            <div class="hud-text -top-6 left-0">SYSTEM: ACTIVE // UNIT VBFX-001</div>
+            <div class="hud-text -bottom-6 right-0">ARMOR: MAX // VIBE: 100%</div>
             <img src="https://vibechain.com/api/proxy?url=https%3A%2F%2Fwieldcd.net%2Fcdn-cgi%2Fimagedelivery%2Fg4iQ0bIzMZrjFMgjAnSGfw%2Fdf4b2a29-5d3a-44ab-e8a3-e7d5f9387200%2Fw%3D600%2Cfit%3Dcontain%2Canim%3Dfalse" 
-                 alt="VIBE FX COMBAT ROBOT" class="w-full h-auto block">
+                 class="w-full h-auto block" alt="Robot">
         </div>
 
-        <a href="https://vibechain.com/market/vibe-fx" target="_blank" class="dream-link">
+        <a href="https://vibechain.com/market/vibe-fx" target="_blank" class="dream-btn mt-16">
             it pays to dream
         </a>
     </main>
 
-    <footer class="w-full flex justify-between items-end text-[9px] tracking-[0.4em] text-zinc-500 uppercase mt-12">
-        <div>PROTOCOL // BASE</div>
-        <div>@BRADENIZATION // 2026</div>
+    <footer class="mt-20 text-[10px] text-zinc-700 tracking-[0.5em] uppercase">
+        © 2026 Bradenization // Base Protocol
     </footer>
 
 </body>
