@@ -3,86 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VIBE FX // BRAND PORTAL</title>
+    <title>VIBE FX // NEW_CARDS_PORTAL</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Space+Grotesk:wght@900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
     <style>
-        :root { --vibe-yellow: #FFD700; --vibe-blue: #0052FF; }
-        
+        :root {
+            --neon-blue: #00CCFF;
+            --neon-pink: #FF00FF;
+            --hazard-yellow: #FFFF00;
+        }
+
         body { 
-            background: #000; 
+            background: #0b0b0b; 
             color: #fff; 
-            font-family: 'Space Grotesk', sans-serif;
-            background-image: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.9)), url('vibefxrrr33836.png');
-            background-size: cover;
-            background-attachment: fixed;
+            font-family: 'Permanent Marker', cursive;
+            background-image: radial-gradient(circle, #1a1a1a 1px, transparent 1px);
+            background-size: 25px 25px;
+            overflow-x: hidden;
         }
 
-        .graffiti { font-family: 'Permanent Marker', cursive; }
-
-        /* The Hazard UI Frame: No internal text, purely visual edge */
-        .hazard-frame {
-            border: 10px solid var(--vibe-yellow);
-            background: #000;
-            box-shadow: 12px 12px 0px var(--vibe-blue);
-            position: relative;
-            clip-path: polygon(0% 1%, 100% 0%, 99% 100%, 1% 99%);
-            overflow: hidden;
-        }
-
-        .portal-btn {
-            background: #fff;
-            color: #000;
-            padding: 10px 25px;
-            font-weight: 900;
-            border: 4px solid var(--vibe-blue);
-            text-transform: uppercase;
-            transition: 0.2s;
-            display: inline-block;
-        }
-        .portal-btn:hover {
-            background: var(--vibe-blue);
+        /* VIBE FX LOGO STYLE */
+        .vibe-header {
+            font-size: clamp(3rem, 12vw, 8rem);
             color: #fff;
-            transform: skewX(-5deg);
+            text-shadow: 
+                -3px -3px 0px #000, 
+                3px -3px 0px #000, 
+                -3px 3px 0px #000, 
+                3px 3px 0px #000,
+                0px 6px 0px var(--neon-blue);
+            line-height: 1;
+            letter-spacing: -2px;
         }
 
-        /* Scanline Glitch Effect */
-        .scanline {
-            width: 100%; height: 2px; background: rgba(0, 82, 255, 0.1);
-            position: fixed; z-index: 100; pointer-events: none;
-            animation: scan 4s linear infinite;
+        .portal-link {
+            border: 4px solid var(--neon-blue);
+            background: #000;
+            padding: 10px 30px;
+            transform: skewX(-12deg);
+            box-shadow: 6px 6px 0px var(--neon-blue);
+            transition: 0.2s;
         }
-        @keyframes scan { 0% { top: -10%; } 100% { top: 110%; } }
+        .portal-link:hover {
+            background: var(--neon-blue);
+            color: #000;
+            box-shadow: -4px -4px 0px #fff;
+        }
+
+        /* CLEAN HAZARD FRAMES (No Internal Text) */
+        .hazard-card {
+            border: 10px solid var(--hazard-yellow);
+            background: #000;
+            position: relative;
+            box-shadow: 0 0 30px rgba(255, 255, 0, 0.2);
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            /* Slightly tilted for the "sketch" feel */
+            transform: rotate(-1deg);
+        }
+        .hazard-card:hover {
+            transform: scale(1.05) rotate(1deg);
+            box-shadow: 0 0 50px var(--neon-blue);
+        }
+
+        .hazard-card img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* THE YELLOW DIVIDER */
+        .hazard-divider {
+            height: 12px;
+            background: repeating-linear-gradient(
+                90deg,
+                var(--hazard-yellow),
+                var(--hazard-yellow) 40px,
+                #000 40px,
+                #000 80px
+            );
+            width: 100%;
+            margin: 80px 0 20px 0;
+        }
     </style>
 </head>
-<body class="p-6 md:p-12 selection:bg-blue-600">
-    <div class="scanline"></div>
+<body class="p-4 md:p-12">
 
-    <header class="max-w-[1400px] mx-auto flex flex-col md:flex-row justify-between items-center mb-32">
-        <div class="relative">
-            <h1 class="graffiti text-7xl md:text-9xl italic uppercase text-white drop-shadow-[4px_4px_0px_#0052FF]">VIBE FX</h1>
-            <p class="text-yellow-400 font-black tracking-[0.5em] text-[10px] mt-2 bg-black inline-block px-2">@BRADENIZATION // 2026</p>
+    <header class="flex flex-col items-center text-center mb-24">
+        <div class="mb-4">
+            <h1 class="vibe-header italic">VIBE FX</h1>
+            <p class="text-yellow-400 text-xl md:text-2xl mt-[-10px]">@BRADENIZATION // 2026</p>
         </div>
-        <div class="mt-8 md:mt-0">
-            <a href="https://vibechain.com/market/vibe-fx" target="_blank" class="portal-btn">PORTAL: VIBE.MARKET</a>
+        
+        <div class="mt-8">
+            <a href="https://vibechain.com/market/vibe-fx" target="_blank" class="portal-link text-xl uppercase italic">Portal: Vibe.Market</a>
         </div>
     </header>
 
-    <main class="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-10">
+    <main class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12">
         
-        <div class="hazard-frame">
-            <img src="VIBEFXJESSE001.png" class="w-full h-full object-cover grayscale hover:grayscale-0 transition duration-500" alt="">
+        <div class="hazard-card">
+            <img src="sketch1756817760479.png" alt="Vibe FX Sketch">
         </div>
 
-        <div class="hazard-frame">
-            <img src="vibefxouro34.png" class="w-full h-full object-cover grayscale hover:grayscale-0 transition duration-500" alt="">
+        <div class="hazard-card" style="transform: rotate(1.5deg);">
+            <img src="5c1e3caf-7051-4c70-abcd-9496ce9a0651.png" alt="Jesse Legendary Card">
         </div>
 
-        <div class="hazard-frame">
-            <img src="vbfxmythic007.png" class="w-full h-full object-cover grayscale hover:grayscale-0 transition duration-500" alt="">
+        <div class="hazard-card" style="transform: rotate(-1.5deg);">
+            <img src="vibefx (2).png" alt="Vibe FX New Cards">
         </div>
 
     </main>
 
-    <footer class="mt-40 pt-20 border-t-4 border-yellow-400 text-center">
-        <h2 class="graffiti text-4xl text-zinc
+    <footer class="text-center mt-32">
+        <div class="hazard-divider"></div>
+        <h2 class="text-2xl md:text-4xl text-yellow-400 uppercase italic mb-2">Not For Sale On This Domain</h2>
+        <p class="text-zinc-600 tracking-[0.6em] text-xs uppercase">Powered by Base Chain</p>
+    </footer>
+
+</body>
+</html>
