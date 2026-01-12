@@ -3,94 +3,132 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VIBE FX // NEW CARDS</title>
+    <title>VIBE FX // STREET PORTAL</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
     <style>
         :root {
             --hazard-yellow: #FFD700;
             --neon-blue: #00FFFF;
+            --deep-black: #050505;
         }
 
         body { 
-            background-color: #000;
-            /* Dark grunge texture background */
+            background-color: var(--deep-black);
+            /* Grunge texture overlay */
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.15'/%3E%3C/svg%3E");
             color: #fff; 
             font-family: 'Permanent Marker', cursive;
+            overflow-x: hidden;
             min-height: 100vh;
         }
 
-        /* THE HAZARD FRAME UI */
+        /* 1. THE HEADER IMAGE (Your specific sketch) */
+        .brand-header-img {
+            max-width: 100%;
+            height: auto;
+            /* Drop shadow to make the paint pop off the dark background */
+            filter: drop-shadow(0px 0px 20px rgba(0, 255, 255, 0.15));
+            transition: transform 0.3s ease;
+        }
+        .brand-header-img:hover {
+            transform: scale(1.02);
+            filter: drop-shadow(0px 0px 30px rgba(0, 255, 255, 0.4));
+        }
+
+        /* 2. THE HAZARD CARD FRAMES */
         .hazard-frame {
             border: 8px solid var(--hazard-yellow);
             background: #000;
-            padding: 4px;
+            padding: 0; /* No padding, image hits the edge */
             position: relative;
-            box-shadow: 10px 10px 0px rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 215, 0, 0.2);
-            transition: transform 0.2s ease;
+            box-shadow: 12px 12px 0px rgba(0,0,0,0.8); /* Hard shadow */
+            transition: all 0.2s ease;
+            overflow: hidden;
         }
 
         .hazard-frame:hover {
-            transform: scale(1.02) rotate(-1deg);
+            transform: translate(-4px, -4px);
+            box-shadow: 16px 16px 0px var(--neon-blue);
             border-color: #fff;
-            box-shadow: 0 0 30px var(--neon-blue);
             z-index: 10;
         }
 
         .hazard-frame img {
             width: 100%;
-            height: auto;
+            height: 100%;
+            object-fit: cover;
             display: block;
-            /* Slight contrast boost to match the edgy vibe */
-            filter: contrast(1.1);
         }
 
-        /* PORTAL BUTTON STYLE */
+        /* 3. BUTTONS & UI */
         .portal-btn {
             background: #000;
             color: #fff;
-            border: 4px solid var(--neon-blue);
-            padding: 15px 40px;
-            font-size: 1.5rem;
+            border: 3px solid var(--neon-blue);
+            padding: 12px 40px;
+            font-size: 1.4rem;
             text-transform: uppercase;
             transform: skewX(-10deg);
             transition: 0.2s;
+            box-shadow: 5px 5px 0px var(--neon-blue);
             display: inline-block;
-            box-shadow: 6px 6px 0px var(--neon-blue);
         }
         .portal-btn:hover {
             background: var(--neon-blue);
             color: #000;
-            box-shadow: -4px -4px 0px #fff;
+            box-shadow: -5px -5px 0px #fff;
         }
 
-        /* DIVIDER */
-        .hazard-line {
-            height: 10px;
+        .footer-line {
+            width: 100%;
+            height: 12px;
             background: repeating-linear-gradient(
-                90deg,
+                45deg,
                 var(--hazard-yellow),
                 var(--hazard-yellow) 20px,
                 #000 20px,
                 #000 40px
             );
-            width: 100%;
-            margin-top: 50px;
-            margin-bottom: 20px;
+            border-top: 2px solid #fff;
+            border-bottom: 2px solid #fff;
+            margin-bottom: 2rem;
         }
     </style>
 </head>
-<body class="p-4 md:p-8">
+<body class="p-6 md:p-10">
 
-    <header class="flex flex-col items-center mb-16">
-        <div class="w-full max-w-2xl transform hover:scale-105 transition duration-500">
-            <img src="sketch1756817760479.png" alt="VIBE FX NEW CARDS HEADER" class="w-full h-auto drop-shadow-[0_0_15px_rgba(0,255,255,0.3)]">
+    <header class="flex flex-col items-center justify-center mb-20 mt-6">
+        <div class="w-full max-w-xl">
+            <img src="sketch1756817760479.png" alt="VIBE FX BRAND ART" class="brand-header-img">
         </div>
         
-        <div class="mt-8">
+        <div class="mt-10">
             <a href="https://vibechain.com/market/vibe-fx" target="_blank" class="portal-btn">ENTER PORTAL</a>
         </div>
     </header>
 
-    <main class="max-w-
+    <main class="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 px-4">
+        
+        <div class="hazard-frame" style="transform: rotate(-1.5deg);">
+            <img src="https://vibechain.com/api/proxy?url=https%3A%2F%2Fwieldcd.net%2Fcdn-cgi%2Fimagedelivery%2Fg4iQ0bIzMZrjFMgjAnSGfw%2F6209276b-c6ed-4155-e438-14eeace31800%2Fw%3D600%2Cfit%3Dcontain%2Canim%3Dfalse" alt="Asset 1">
+        </div>
+
+        <div class="hazard-frame" style="transform: rotate(1deg); margin-top: 30px;">
+            <img src="https://vibechain.com/api/proxy?url=https%3A%2F%2Fwieldcd.net%2Fcdn-cgi%2Fimagedelivery%2Fg4iQ0bIzMZrjFMgjAnSGfw%2Fae43d88a-790e-479d-d70f-3580164abc00%2Fw%3D600%2Cfit%3Dcontain%2Canim%3Dfalse" alt="Asset 2">
+        </div>
+
+        <div class="hazard-frame" style="transform: rotate(-2deg);">
+            <img src="https://vibechain.com/api/proxy?url=https%3A%2F%2Fwieldcd.net%2Fcdn-cgi%2Fimagedelivery%2Fg4iQ0bIzMZrjFMgjAnSGfw%2F0ac194d8-6950-4119-1540-75c42da0df00%2Fw%3D250%2Cfit%3Dcontain%2Canim%3Dfalse" alt="Asset 3">
+        </div>
+
+    </main>
+
+    <footer class="mt-32 text-center pb-10">
+        <div class="footer-line"></div>
+        <h2 class="text-3xl text-yellow-500 uppercase font-bold tracking-wide">Not for sale on this domain</h2>
+        <p class="text-zinc-500 text-xs tracking-[0.6em] uppercase mt-4">Powered by Base Chain // @Bradenization</p>
+    </footer>
+
+</body>
+</html>
