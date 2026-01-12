@@ -3,136 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VIBE FX // STREETWEAR ON BASE</title>
+    <title>VIBE FX // UNLEASHED</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Rubik+Mono+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik+Mono+One&display=swap" rel="stylesheet">
     <style>
         body { 
             background-color: #000; 
             color: #fff; 
-            font-family: 'Permanent Marker', cursive;
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(255, 0, 255, 0.2) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(0, 255, 255, 0.2) 0%, transparent 40%);
             margin: 0;
-            overflow-x: hidden;
+            overflow: hidden; /* Keeps the focus on the center */
         }
 
-        /* THE GRAFFITI BUBBLE LOGO */
-        .vibe-pack-logo {
+        /* THE MAIN LOGO: VIBE FX */
+        .vibe-fx-main {
             font-family: 'Rubik Mono One', sans-serif;
-            font-size: clamp(3rem, 8vw, 6rem);
-            color: white;
+            font-size: 4rem;
             text-transform: uppercase;
-            letter-spacing: -2px;
-            /* Thick Black Outline */
-            -webkit-text-stroke: 3px #000;
-            /* Red to White Inner Gradient */
-            background: linear-gradient(to bottom, #ff3e3e 0%, #ffffff 50%, #ffffff 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(8px 8px 0px #000);
-            position: relative;
+            color: white;
+            -webkit-text-stroke: 2px #000;
+            filter: 
+                drop-shadow(2px 2px 0px #ff0000) 
+                drop-shadow(5px 5px 0px #000);
             display: inline-block;
         }
 
-        /* PAINT DRIPS */
-        .vibe-pack-logo::after {
-            content: 'VIBE FX';
-            position: absolute;
-            left: 0; top: 5px;
-            -webkit-text-stroke: 0;
-            background: linear-gradient(to bottom, transparent 60%, #ff3e3e 100%);
-            -webkit-background-clip: text;
-            filter: blur(2px);
-            opacity: 0.8;
-            z-index: -1;
-        }
-
-        .neon-splatter {
+        /* THE MARKET LOGO: SMALL STICKER IN CORNER */
+        .market-tag-small {
             position: fixed;
-            z-index: -1;
-            filter: blur(60px);
-            border-radius: 50%;
-            opacity: 0.4;
-        }
-
-        /* BUTTON: SKEWED AND LOUD */
-        .btn-graffiti {
-            background: #ccff00;
-            color: black;
-            padding: 1rem 3rem;
-            font-size: 1.5rem;
-            font-weight: 900;
-            transform: skewX(-15deg) rotate(-2deg);
-            border: 4px solid #000;
-            box-shadow: 8px 8px 0px #ff00ff;
-            transition: 0.2s;
-        }
-        .btn-graffiti:hover {
-            transform: skewX(-10deg) scale(1.1);
-            background: #ff00ff;
-            color: white;
-            box-shadow: 8px 8px 0px #00ffff;
-        }
-
-        .market-corner {
-            font-family: 'Rubik Mono One', sans-serif;
-            font-style: italic;
+            top: 1.5rem;
+            right: 1.5rem;
             background: #fff;
             color: #000;
-            padding: 5px 15px;
+            font-family: 'Rubik Mono One', sans-serif;
+            padding: 4px 10px;
+            font-size: 0.7rem; /* Much smaller, subtle vibe */
+            border: 2px solid #000;
             transform: rotate(3deg);
+            z-index: 100;
+            letter-spacing: 1px;
+        }
+
+        .pack-art {
+            border: 6px solid #fff;
+            box-shadow: 15px 15px 0px #000;
+            max-width: 380px;
+        }
+
+        .btn-buy {
+            background: #ccff00;
+            color: black;
+            font-family: 'Rubik Mono One', sans-serif;
+            padding: 1rem 2.5rem;
+            font-size: 1.2rem;
+            border: 3px solid #000;
+            box-shadow: 6px 6px 0px #ff00ff;
+            text-transform: uppercase;
+            transition: 0.1s;
+        }
+        .btn-buy:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 8px 8px 0px #00ffff;
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col">
+<body class="min-h-screen flex flex-col items-center justify-between p-10">
 
-    <nav class="flex justify-between items-center p-8 relative z-10">
-        <div class="flex flex-col">
-            <h1 class="vibe-pack-logo">VIBE FX</h1>
-            <span class="text-cyan-400 tracking-[0.5em] text-xs ml-2 uppercase">Series 01 // Base Network</span>
-        </div>
-        <div class="hidden md:flex gap-10 text-xl items-center">
-            <a href="https://vibechain.com/market/vibe-fx" target="_blank" class="hover:text-[#ccff00] transition underline decoration-[#ff00ff]">MARKET</a>
-            <button class="bg-white text-black px-6 py-2 border-4 border-black shadow-[4px_4px_0_#00ffff]">SYNC</button>
-        </div>
-    </nav>
+    <div class="market-tag-small">
+        VIBE.MARKET
+    </div>
 
-    <main class="flex-grow flex flex-col items-center justify-center py-10 px-6">
-        
-        <div class="relative group">
-            <div class="absolute -inset-10 bg-pink-600 rounded-full blur-[100px] opacity-20"></div>
-            <div class="absolute -inset-10 bg-cyan-400 rounded-full blur-[100px] opacity-20 translate-x-20"></div>
+    <header class="w-full text-center">
+        <h1 class="vibe-fx-main">VIBE FX</h1>
+    </header>
 
-            <div class="relative border-[10px] border-white shadow-[20px_20px_0_#000]">
-                <img src="https://vibechain.com/api/proxy?url=https%3A%2F%2Fwieldcd.net%2Fcdn-cgi%2Fimagedelivery%2Fg4iQ0bIzMZrjFMgjAnSGfw%2Fdf4b2a29-5d3a-44ab-e8a3-e7d5f9387200%2Fw%3D600%2Cfit%3Dcontain%2Canim%3Dfalse" 
-                     class="w-full max-w-[400px] block" alt="VIBE FX PACK COVER">
-                
-                <div class="absolute -top-10 -right-10 bg-[#ff00ff] text-white p-4 font-black text-2xl rotate-12 border-4 border-black shadow-lg">
-                    BASE!
-                </div>
-            </div>
+    <main class="flex flex-col items-center justify-center">
+        <div class="relative">
+            <div class="absolute -inset-10 bg-cyan-500/10 blur-[80px]"></div>
+            <img src="https://vibechain.com/api/proxy?url=https%3A%2F%2Fwieldcd.net%2Fcdn-cgi%2Fimagedelivery%2Fg4iQ0bIzMZrjFMgjAnSGfw%2Fdf4b2a29-5d3a-44ab-e8a3-e7d5f9387200%2Fw%3D600%2Cfit%3Dcontain%2Canim%3Dfalse" 
+                 class="pack-art relative z-10" alt="VIBE FX">
         </div>
 
-        <div class="mt-20">
-            <a href="https://vibechain.com/market/vibe-fx" target="_blank" class="btn-graffiti inline-block">
-                GET THE PACK
-            </a>
-        </div>
+        <a href="https://vibechain.com/market/vibe-fx" target="_blank" class="btn-buy mt-12">
+            GET PACK
+        </a>
     </main>
 
-    <footer class="p-10 flex flex-col md:flex-row justify-between items-center gap-6">
-        <div class="text-[#ccff00] text-sm tracking-widest uppercase">
-            Designed by Bradenization // © 2026
-        </div>
-        
-        <div class="flex items-center gap-4">
-            <span class="text-zinc-600 text-[10px] uppercase font-bold">Authorized Platform:</span>
-            <div class="market-corner">
-                VIBE.MARKET
-            </div>
-        </div>
+    <footer class="text-[10px] text-zinc-700 font-bold uppercase tracking-[0.4em]">
+        Base Network // 2026
     </footer>
 
 </body>
