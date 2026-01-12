@@ -3,48 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VIBE FX | Digital Liquid Aesthetics</title>
+    <title>VIBE FX | Official</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&display=swap" rel="stylesheet">
     <style>
-        :root { --vibe-cyan: #00f2ff; --vibe-purple: #bc13fe; }
-        body { font-family: 'Syne', sans-serif; background-color: #030303; color: white; overflow-x: hidden; }
-        
-        /* The Pack-Style Logo */
-        .logo-wrapper { display: flex; align-items: center; filter: drop-shadow(0 0 10px rgba(0, 242, 255, 0.3)); }
-        .vibe-brand {
-            font-weight: 800; font-size: 2rem; letter-spacing: -0.05em; font-style: italic; text-transform: uppercase;
-            background: linear-gradient(180deg, #fff 0%, #fff 45%, #7a7a7a 50%, #ffffff 55%, #ffffff 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1;
+        body { background-color: #050505 !important; color: white !important; margin: 0; font-family: 'Syne', sans-serif; }
+        .vibe-chrome {
+            font-weight: 800; font-style: italic; font-size: 2rem;
+            background: linear-gradient(180deg, #fff 45%, #7a7a7a 50%, #fff 55%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
-        .fx-sticker {
-            background: #fff; color: #000; padding: 4px 10px; font-size: 1.1rem; font-style: italic;
-            margin-left: 4px; transform: skewX(-15deg); border-radius: 2px; font-weight: 900;
-            box-shadow: 3px 3px 0px var(--vibe-purple);
+        .fx-tag {
+            background: white; color: black; padding: 2px 8px; 
+            transform: skewX(-15deg); font-weight: 900; margin-left: 5px;
         }
-
-        /* UI Elements */
-        .glass-panel { background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); }
-        .mono { font-family: 'JetBrains Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.2em; }
-        
-        #cursor-glow {
-            position: fixed; top: 0; left: 0; width: 500px; height: 500px;
-            background: radial-gradient(circle, rgba(0, 242, 255, 0.05) 0%, transparent 70%);
-            pointer-events: none; transform: translate(-50%, -50%); z-index: 0;
-        }
-
-        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-        .animate-marquee { display: flex; animation: marquee 30s linear infinite; }
     </style>
 </head>
 <body>
-    <div id="cursor-glow"></div>
 
-    <nav class="sticky top-0 z-50 flex justify-between items-center p-6 max-w-7xl mx-auto glass-panel mt-4 rounded-full">
-        <div class="logo-wrapper">
-            <span class="vibe-brand">VIBE</span>
-            <span class="fx-sticker">FX</span>
+    <nav class="flex justify-between items-center p-6 max-w-7xl mx-auto border-b border-white/10">
+        <div class="flex items-center">
+            <span class="vibe-chrome text-2xl">VIBE</span>
+            <span class="fx-tag">FX</span>
         </div>
-        
-        <div class="hidden md:flex gap-10 mono text-zinc-500">
-            <a href="https://vibechain.com/market/vibe-fx" target="_blank" class
+        <a href="https://vibechain.com/market/vibe-fx" target="_blank" class="text-xs uppercase tracking-widest text-zinc-400 hover:text-white">Market</a>
+    </nav>
+
+    <main class="flex flex-col items-center justify-center min-h-[80vh] text-center px-6">
+        <h1 class="text-6xl md:text-8xl font-black italic uppercase leading-none mb-8">
+            LIQUID<br><span style="-webkit-text-stroke: 1px white; color: transparent;">AESTHETICS</span>
+        </h1>
+
+        <div class="relative group">
+            <div class="absolute -inset-1 bg-cyan-500 rounded-lg blur opacity-25"></div>
+            <img src="https://vibechain.com/api/proxy?url=https%3A%2F%2Fwieldcd.net%2Fcdn-cgi%2Fimagedelivery%2Fg4iQ0bIzMZrjFMgjAnSGfw%2Fdf4b2a29-5d3a-44ab-e8a3-e7d5f9387200%2Fw%3D600%2Cfit%3Dcontain%2Canim%3Dfalse" 
+                 class="relative w-72 md:w-96 rounded-lg shadow-2xl border border-white/10" alt="VIBE FX">
+        </div>
+
+        <div class="mt-12">
+            <a href="https://vibechain.com/market/vibe-fx" target="_blank" class="bg-white text-black px-12 py-4 rounded-full font-bold uppercase hover:bg-cyan-400 transition">
+                View Collection
+            </a>
+        </div>
+    </main>
+
+</body>
+</html>
