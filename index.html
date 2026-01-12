@@ -3,129 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VIBE FX // DATA_VAULT</title>
+    <title>VIBE FX // BRAND PORTAL</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Syncopate:wght@700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Space+Grotesk:wght@900&display=swap" rel="stylesheet">
     <style>
-        :root { --hazard: #FFD700; --vibe-blue: #0052FF; }
-
+        :root { --vibe-yellow: #FFD700; --vibe-blue: #0052FF; }
+        
         body { 
             background: #000; 
             color: #fff; 
-            font-family: 'Space Mono', monospace;
-            overflow-x: hidden;
-            background-image: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('vibefxrrr33836.png');
+            font-family: 'Space Grotesk', sans-serif;
+            background-image: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.9)), url('vibefxrrr33836.png');
             background-size: cover;
             background-attachment: fixed;
         }
 
         .graffiti { font-family: 'Permanent Marker', cursive; }
-        .vibe-font { font-family: 'Syncopate', sans-serif; text-transform: uppercase; font-style: italic; }
 
-        /* THE HAZARD FRAME: Recreating the hand-cut card edges from your art */
-        .hazard-box {
+        /* The Hazard UI Frame: No internal text, purely visual edge */
+        .hazard-frame {
+            border: 10px solid var(--vibe-yellow);
             background: #000;
-            border: 10px solid var(--hazard);
-            box-shadow: 15px 15px 0px var(--vibe-blue);
+            box-shadow: 12px 12px 0px var(--vibe-blue);
             position: relative;
-            clip-path: polygon(1% 0%, 99% 1%, 100% 98%, 0% 100%);
-            transition: all 0.3s ease;
-        }
-        .hazard-box:hover { transform: scale(1.02) rotate(-1deg); border-color: #fff; }
-
-        /* Glitch Scanline Overlay */
-        .scanline {
-            width: 100%; height: 100%; position: fixed; top: 0; left: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.2) 50%);
-            background-size: 100% 4px; z-index: 100; pointer-events: none;
+            clip-path: polygon(0% 1%, 100% 0%, 99% 100%, 1% 99%);
+            overflow: hidden;
         }
 
-        .tag-sticker {
-            background: var(--hazard);
+        .portal-btn {
+            background: #fff;
             color: #000;
-            padding: 5px 15px;
+            padding: 10px 25px;
             font-weight: 900;
-            transform: rotate(-4deg);
+            border: 4px solid var(--vibe-blue);
+            text-transform: uppercase;
+            transition: 0.2s;
             display: inline-block;
-            border: 2px solid #000;
         }
-
-        .btn-portal {
+        .portal-btn:hover {
             background: var(--vibe-blue);
             color: #fff;
-            padding: 12px 30px;
-            font-weight: 900;
-            border: 4px solid #fff;
-            transform: skewX(-10deg);
-            transition: 0.2s;
+            transform: skewX(-5deg);
         }
-        .btn-portal:hover { background: #fff; color: #000; box-shadow: 0 0 20px var(--vibe-blue); }
+
+        /* Scanline Glitch Effect */
+        .scanline {
+            width: 100%; height: 2px; background: rgba(0, 82, 255, 0.1);
+            position: fixed; z-index: 100; pointer-events: none;
+            animation: scan 4s linear infinite;
+        }
+        @keyframes scan { 0% { top: -10%; } 100% { top: 110%; } }
     </style>
 </head>
-<body class="p-4 md:p-10">
+<body class="p-6 md:p-12 selection:bg-blue-600">
     <div class="scanline"></div>
 
-    <header class="max-w-[1500px] mx-auto flex flex-col md:flex-row justify-between items-center mb-32">
+    <header class="max-w-[1400px] mx-auto flex flex-col md:flex-row justify-between items-center mb-32">
         <div class="relative">
-            <h1 class="vibe-font text-6xl md:text-9xl italic tracking-tighter text-white">VIBE FX</h1>
-            <div class="absolute -bottom-6 right-0 tag-sticker graffiti text-xl">@BRADENIZATION // 2026</div>
+            <h1 class="graffiti text-7xl md:text-9xl italic uppercase text-white drop-shadow-[4px_4px_0px_#0052FF]">VIBE FX</h1>
+            <p class="text-yellow-400 font-black tracking-[0.5em] text-[10px] mt-2 bg-black inline-block px-2">@BRADENIZATION // 2026</p>
         </div>
-        
-        <div class="mt-16 md:mt-0">
-            <a href="https://vibechain.com/market/vibe-fx" target="_blank" class="btn-portal vibe-font">Platform_Entry</a>
+        <div class="mt-8 md:mt-0">
+            <a href="https://vibechain.com/market/vibe-fx" target="_blank" class="portal-btn">PORTAL: VIBE.MARKET</a>
         </div>
     </header>
 
-    <main class="max-w-[1500px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16">
+    <main class="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-10">
         
-        <section class="lg:col-span-8 hazard-box p-6 group">
-            <div class="flex justify-between items-start mb-8">
-                <span class="graffiti text-4xl text-yellow-400">LEGENDARY_OG</span>
-                <span class="text-yellow-400 text-3xl">★★★★★</span>
-            </div>
-            
-            <div class="border-4 border-zinc-900 overflow-hidden relative">
-                <img src="VIBEFXJESSE001.png" class="w-full h-auto grayscale group-hover:grayscale-0 transition-all duration-700" alt="Jesse Artifact">
-                <div class="absolute bottom-4 left-4 bg-blue-600 px-3 py-1 text-[10px] font-bold">DNA_MATCH: 100%</div>
-            </div>
+        <div class="hazard-frame">
+            <img src="VIBEFXJESSE001.png" class="w-full h-full object-cover grayscale hover:grayscale-0 transition duration-500" alt="">
+        </div>
 
-            <div class="mt-8 flex justify-between items-end">
-                <div>
-                    <p class="text-[10px] text-zinc-500 font-bold tracking-[0.5em] uppercase">Archive_Ref: S-05</p>
-                    <h2 class="graffiti text-5xl mt-2 italic">JESSE_001</h2>
-                </div>
-                <div class="vibe-font text-blue-500 text-sm border-b-2 border-blue-500">View on VibeMarket</div>
-            </div>
-        </section>
+        <div class="hazard-frame">
+            <img src="vibefxouro34.png" class="w-full h-full object-cover grayscale hover:grayscale-0 transition duration-500" alt="">
+        </div>
 
-        <aside class="lg:col-span-4 flex flex-col gap-12">
-            
-            <div class="hazard-box p-3 hover:translate-x-4 transition-transform">
-                <img src="vibefxouro34.png" class="w-full h-auto mb-4 grayscale hover:grayscale-0" alt="Ouro">
-                <div class="flex justify-between items-center px-2">
-                    <span class="graffiti text-2xl uppercase">Puromay</span>
-                    <span class="text-xs text-blue-500 font-bold">ID: 034</span>
-                </div>
-            </div>
+        <div class="hazard-frame">
+            <img src="vbfxmythic007.png" class="w-full h-full object-cover grayscale hover:grayscale-0 transition duration-500" alt="">
+        </div>
 
-            <div class="hazard-box p-3 hover:translate-x-4 transition-transform">
-                <img src="vbfxmythic007.png" class="w-full h-auto mb-4 grayscale hover:grayscale-0" alt="Mythic">
-                <div class="flex justify-between items-center px-2">
-                    <span class="graffiti text-2xl uppercase text-cyan-400">Mythic</span>
-                    <span class="text-xs text-blue-500 font-bold">ID: 007</span>
-                </div>
-            </div>
-
-        </aside>
     </main>
 
-    <footer class="mt-40 border-t-8 border-dashed border-zinc-900 pt-20 flex flex-col items-center">
-        <img src="vibefxartrrrr.png" class="h-28 w-auto grayscale invert opacity-30 hover:opacity-100 transition duration-500" alt="Vibe FX Logo">
-        <div class="mt-12 text-center">
-            <p class="graffiti text-3xl text-zinc-700 uppercase mb-4 tracking-widest">Digital Artifact Portal</p>
-            <p class="text-[9px] text-zinc-800 font-black tracking-[1em] uppercase">Built on Base // Bradenization Studio</p>
-        </div>
-    </footer>
-
-</body>
-</html>
+    <footer class="mt-40 pt-20 border-t-4 border-yellow-400 text-center">
+        <h2 class="graffiti text-4xl text-zinc
