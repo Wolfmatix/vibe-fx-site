@@ -1,131 +1,68 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VIBE FX | Live Dashboard</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.7.0/ethers.umd.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Inter:wght@400;900&display=swap" rel="stylesheet">
-    <style>
-        :root { --n-green: #b4ff39; --n-orange: #ff7e00; --n-blue: #22d3ee; --n-yellow: #fde047; }
-        body { background: #000; color: white; font-family: 'Inter', sans-serif; overflow-x: hidden; }
-        .graffiti { font-family: 'Permanent Marker', cursive; }
-        
-        /* The Paint Drip Effect */
-        .vibe-card { background: rgba(0,0,0,0.85); border: 3px solid; position: relative; border-radius: 1.5rem; }
-        .vibe-card::after {
-            content: ''; position: absolute; bottom: -18px; left: 0; right: 0; height: 20px;
-            background: currentColor; clip-path: polygon(10% 0%, 12% 100%, 15% 0%, 30% 0%, 32% 80%, 35% 0%, 60% 0%, 62% 90%, 65% 0%, 85% 0%, 87% 100%, 90% 0%);
-        }
+<span class="text-white font-black text-xl">
+    Live Pack Price: <span id="live-market-price" class="text-white">Loading...</span> 
+    <span class="text-yellow-400 ml-4">★ $vbfx Balance: <span id="balance">0</span></span>
+</span>
 
-        .glow-green { border-color: var(--n-green); color: var(--n-green); filter: drop-shadow(0 0 10px var(--n-green)); }
-        .glow-orange { border-color: var(--n-orange); color: var(--n-orange); filter: drop-shadow(0 0 10px var(--n-orange)); }
-        .glow-blue { border-color: var(--n-blue); color: var(--n-blue); filter: drop-shadow(0 0 10px var(--n-blue)); }
-        .glow-yellow { border-color: var(--n-yellow); color: var(--n-yellow); filter: drop-shadow(0 0 15px var(--n-yellow)); }
-        
-        .logo-main { font-size: clamp(4rem, 10vw, 7rem); -webkit-text-stroke: 2px white; text-shadow: 4px 4px 0px #ff0000; }
-        .bounty-locked { filter: grayscale(1) brightness(0.4); opacity: 0.6; pointer-events: none; }
-    </style>
-</head>
-<body class="flex flex-col items-center p-6 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')]">
+<script>
+    const MARKET_URL = "https://vibechain.com/market/vibe-fx";
+    const PROXY_URL = "https://api.allorigins.win/get?url="; // Bypasses CORS to let us read the page
 
-    <div class="text-center mb-8">
-        <h1 class="graffiti logo-main italic uppercase tracking-tighter">VIBE FX</h1>
-        <button id="connectBtn" class="mt-6 px-10 py-2 border-2 border-cyan-400 rounded-full bg-black text-white font-bold shadow-[0_0_15px_#22d3ee] hover:scale-105 transition mx-auto">
-            Connect Wallet
-        </button>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-5xl mb-12">
-        <div class="vibe-card glow-green p-8 flex flex-col items-center text-center">
-            <div class="w-16 h-16 rounded-full border-4 border-current flex items-center justify-center mb-4"><span class="text-3xl">✔</span></div>
-            <h2 class="text-2xl font-black italic uppercase leading-tight">Claim<br>$GREENDAYS</h2>
-            <p class="text-white text-[10px] mt-2 font-bold opacity-70 tracking-widest">EARN CHECK-IN REWARDS</p>
-        </div>
-
-        <div id="bountyCard" class="vibe-card glow-orange p-8 flex flex-col items-center text-center bounty-locked">
-            <span id="bountyStatus" class="absolute -top-4 left-4 bg-zinc-800 text-white font-black px-3 py-1 rounded italic uppercase text-[10px]">Locked</span>
-            <div class="w-20 h-28 bg-gradient-to-b from-yellow-400 to-red-600 rounded-lg border-2 border-white mb-2 flex items-center justify-center">
-                <span class="text-[8px] font-black text-white">MYTHIC</span>
-            </div>
-            <h2 class="text-white text-2xl font-black italic uppercase leading-tight">Pull the<br>Foil Legend</h2>
-            <p class="text-orange-400 text-[9px] font-bold mt-1">REDEEM MYTHIC WORTH $4600</p>
-        </div>
-
-        <div onclick="window.location.href='/gallery'" class="vibe-card glow-blue p-8 flex flex-col items-center text-center cursor-pointer">
-            <div class="flex -space-x-8 mb-4">
-                <div class="w-14 h-20 bg-blue-900 border border-cyan-400 rounded rotate-[-10deg]"></div>
-                <div class="w-14 h-20 bg-blue-600 border-2 border-cyan-400 rounded z-10"></div>
-            </div>
-            <h2 class="text-white text-2xl font-black italic uppercase leading-tight">View Gallery</h2>
-            <p class="text-white text-[10px] mt-2 font-bold opacity-70 tracking-widest">SHOW YOUR VIBE FX CARDS</p>
-        </div>
-    </div>
-
-    <div class="vibe-card glow-yellow w-full max-w-5xl p-6 flex flex-wrap items-center justify-between border-4">
-        <div class="flex items-center gap-6">
-            <h2 class="graffiti text-5xl italic text-white drop-shadow-[2px_2px_0px_#ff0000]">VIBEX</h2>
-            <div class="flex flex-col">
-                <span class="text-yellow-400 font-bold uppercase text-[10px]">VIBE FX Collection</span>
-                <span class="text-white font-black text-xl">
-                    Pack Price: <span id="pack-price-usd">$0.00</span> 
-                    <span class="text-yellow-400 ml-4">★ $vbfx Balance: <span id="balance">0</span></span>
-                </span>
-            </div>
-        </div>
-        <a href="https://vibechain.com/market/vibe-fx" target="_blank" class="bg-yellow-400 text-black px-10 py-3 rounded-full font-black text-xl hover:scale-105 transition">BUY NOW ▶</a>
-    </div>
-
-    <script>
-        const TOKEN_ADDR = "0x30d24fc619f59f6f267ee884d802288e124b17c1";
-        const DROP_ADDR = "0xc7f2d8c035b2505f30a5417c0374ac0299d88553";
-        const PACK_COST_ETH = 0.005; // SET YOUR ACTUAL ETH PACK COST HERE
-
-        async function updatePackPrice() {
-            try {
-                const res = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd');
-                const data = await res.json();
-                const ethPrice = data.ethereum.usd;
-                const livePackUsd = (ethPrice * PACK_COST_ETH).toFixed(2);
-                document.getElementById('pack-price-usd').innerText = `$${livePackUsd}`;
-            } catch (e) { console.error("Price fetch failed"); }
-        }
-
-        async function init() {
-            if (!window.ethereum) return alert("Install MetaMask");
-            const provider = new ethers.BrowserProvider(window.ethereum);
-            const accounts = await provider.send("eth_requestAccounts", []);
-            const address = accounts[0];
+    async function fetchLivePrice() {
+        try {
+            const response = await fetch(`${PROXY_URL}${encodeURIComponent(MARKET_URL)}`);
+            const data = await response.json();
             
-            document.getElementById('connectBtn').innerText = address.slice(0,6) + "..." + address.slice(-4);
+            // We create a temporary hidden element to parse the HTML
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(data.contents, 'text/html');
 
-            // 1. $VBFX Balance
-            const erc20Abi = ["function balanceOf(address) view returns (uint256)", "function decimals() view returns (uint8)"];
-            const tokenContract = new ethers.Contract(TOKEN_ADDR, erc20Abi, provider);
-            const balance = await tokenContract.balanceOf(address);
-            const decimals = await tokenContract.decimals();
-            document.getElementById('balance').innerText = parseFloat(ethers.formatUnits(balance, decimals)).toLocaleString();
+            // This looks for common price patterns on VibeChain (usually in a specific div or span)
+            // Note: If VibeChain changes their layout, we just update the selector below.
+            const priceElement = doc.querySelector('.text-2xl.font-bold') || 
+                               doc.querySelector('[class*="price"]') || 
+                               doc.querySelector('.font-black.text-white');
 
-            // 2. Foil Check (Bounty)
-            const nftAbi = ["function balanceOf(address) view returns (uint256)"];
-            const nftContract = new ethers.Contract(DROP_ADDR, nftAbi, provider);
-            
-            try {
-                const nftBalance = await nftContract.balanceOf(address);
-                if (nftBalance > 0n) {
-                    const bc = document.getElementById('bountyCard');
-                    bc.classList.remove('bounty-locked');
-                    const bs = document.getElementById('bountyStatus');
-                    bs.innerText = "UNLOCKED";
-                    bs.className = "absolute -top-4 left-4 bg-green-500 text-black font-black px-3 py-1 rounded italic uppercase text-[10px]";
-                }
-            } catch (e) { console.log("NFT Check Failed"); }
+            if (priceElement) {
+                const rawPrice = priceElement.innerText.trim();
+                document.getElementById('live-market-price').innerText = rawPrice;
+            } else {
+                document.getElementById('live-market-price').innerText = "Check Market";
+            }
+        } catch (error) {
+            console.error("Failed to fetch price:", error);
+            document.getElementById('live-market-price').innerText = "Market Offline";
         }
+    }
 
-        document.getElementById('connectBtn').onclick = init;
-        updatePackPrice();
-        setInterval(updatePackPrice, 60000); // Update price every minute
-    </script>
-</body>
-</html>
+    // Connect Wallet and Balance Logic (Already matches your provided addresses)
+    async function init() {
+        if (!window.ethereum) return alert("Install MetaMask");
+        const provider = new ethers.BrowserProvider(window.ethereum);
+        const accounts = await provider.send("eth_requestAccounts", []);
+        const address = accounts[0];
+        
+        document.getElementById('connectBtn').innerText = address.slice(0,6) + "..." + address.slice(-4);
+
+        // $VBFX Balance from 0x30d24fc619f59f6f267ee884d802288e124b17c1
+        const erc20Abi = ["function balanceOf(address) view returns (uint256)", "function decimals() view returns (uint8)"];
+        const tokenContract = new ethers.Contract("0x30d24fc619f59f6f267ee884d802288e124b17c1", erc20Abi, provider);
+        const balance = await tokenContract.balanceOf(address);
+        const decimals = await tokenContract.decimals();
+        document.getElementById('balance').innerText = parseFloat(ethers.formatUnits(balance, decimals)).toLocaleString();
+
+        // NFT Check for Bounty from 0xc7f2d8c035b2505f30a5417c0374ac0299d88553
+        const nftContract = new ethers.Contract("0xc7f2d8c035b2505f30a5417c0374ac0299d88553", ["function balanceOf(address) view returns (uint256)"], provider);
+        const nftBalance = await nftContract.balanceOf(address);
+        if (nftBalance > 0n) {
+            document.getElementById('bountyCard').classList.remove('bounty-locked');
+            document.getElementById('bountyStatus').innerText = "UNLOCKED";
+            document.getElementById('bountyStatus').style.backgroundColor = "#b4ff39";
+            document.getElementById('bountyStatus').style.color = "#000";
+        }
+    }
+
+    // Run on Load
+    document.getElementById('connectBtn').onclick = init;
+    fetchLivePrice();
+    setInterval(fetchLivePrice, 60000); // Refresh price every 60 seconds
+</script>
