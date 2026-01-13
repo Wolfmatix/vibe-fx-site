@@ -1,17 +1,12 @@
-# 🚨 VIBE FX: COLLAGE SPECIFICATION (NON-NEGOTIABLE)
+# 🎨 Vibe FX: Original Canvas Implementation
 
-This repository is for the high-fidelity graffiti dashboard. It must NOT use standard web rows or "clean" grids.
+This repository uses the original Vibe FX street-art masterpiece as the primary UI layer to ensure 100% visual fidelity.
 
-## 🎨 Visual Identity
-* **VIBEX Logo**: Must use the hand-drawn font with 15px red offset shadow and 4-color liquid drips (Red, Blue, Yellow, Teal).
-* **Layering**: Elements must use `z-index` and `absolute` positioning to overlap like physical stickers slapped on a wall.
-* **Drip Logic**: Boxes must have irregular "running paint" bottoms using SVG gooey filters—NOT straight borders.
-* **Bounty Sticker**: The "BOUNTY" tag must be a physical-looking sticker rotated at -12 degrees and placed ON TOP of the center card.
+## 🚨 Implementation Strategy
+* **Static Background**: The code uses the community reference image as a fixed-position canvas.
+* **Functional Overlays**: Buttons and live text fields are mapped precisely over the "Connect Wallet", "Buy Now", and "Stats" areas of the image.
+* **No Hardcoded Stats**: The original placeholder numbers ($0.084, $9,750) are physically covered by live data fields that pull from the blockchain.
+* **Web3 Integration**: Tracks the `$VBFX` token at `0x30d24fc619f59f6f267ee884d802288e124b17c1`.
 
-## 📉 Data Integrity
-* **STRICT RULE**: Do NOT use the placeholder values ($0.084, $9,750, 120,300) in production.
-* **Live Data**: Fetch real price from `vibe.market` and real balance via the `0x30...17c1` contract.
-
-## 🛠️ Deployment
-* Only one `index.html` is required.
-* Inline CSS is preferred to ensure "clean" external stylesheets don't override the collage aesthetic.
+## 📦 Requirements
+To make this work, you must host your image (1000050620.png) and replace `YOUR_IMAGE_URL_HERE` in the code.
