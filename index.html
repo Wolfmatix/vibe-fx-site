@@ -2,65 +2,95 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>VIBE FX | AUTHENTIC CANVAS</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.7.0/ethers.umd.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Kanit:ital,wght@1,900&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIBE FX Dashboard</title>
     <style>
-        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #000; }
-        
-        /* THE ARTWORK AS A STATIC BACKGROUND */
-        .background-canvas {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: url('YOUR_IMAGE_URL_HERE') no-repeat center center;
-            background-size: contain; z-index: 1;
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            font-family: Arial, sans-serif;
         }
 
-        /* FUNCTIONAL OVERLAYS (Buttons/Text placed over the image) */
-        .overlay-layer { position: relative; z-index: 10; width: 100%; height: 100%; }
+        /* The container uses your image as a background */
+        .dashboard-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px; /* Adjust based on your image aspect ratio */
+            aspect-ratio: 9 / 16;
+            background-image: url('1000050620.png'); /* Ensure this filename matches your saved image */
+            background-size: cover;
+            background-position: center;
+        }
 
-        /* Precise Positioning for the Connect Button */
+        /* Invisible, functional button overlays */
+        .btn {
+            position: absolute;
+            background: rgba(255, 255, 255, 0); /* Transparent */
+            border: none;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.1); /* Subtle highlight on hover */
+        }
+
+        /* Positioning buttons over the image elements */
         .btn-connect {
-            position: absolute; top: 26.5%; left: 50%; transform: translateX(-50%);
-            width: 280px; height: 50px; cursor: pointer; background: transparent; border: none;
+            top: 25.5%;
+            left: 30%;
+            width: 40%;
+            height: 4%;
+            border-radius: 20px;
         }
 
-        /* Live Data Overlays (Zero False Stats) */
-        .live-text { font-family: 'Kanit', sans-serif; font-weight: 900; font-style: italic; color: #fff; text-shadow: 2px 2px 10px rgba(0,0,0,0.8); }
-        
-        .pos-balance { position: absolute; bottom: 10.5%; right: 28%; font-size: 3.5rem; }
-        .pos-price { position: absolute; bottom: 10.5%; left: 45%; font-size: 5rem; }
-        
-        /* The Actual "Buy" Button area */
-        .btn-buy { position: absolute; bottom: 5%; right: 10%; width: 250px; height: 80px; cursor: pointer; }
+        .btn-claim {
+            top: 33%;
+            left: 5%;
+            width: 28%;
+            height: 25%;
+        }
+
+        .btn-bounty {
+            top: 33%;
+            left: 36%;
+            width: 28%;
+            height: 25%;
+        }
+
+        .btn-gallery {
+            top: 33%;
+            left: 67%;
+            width: 28%;
+            height: 25%;
+        }
+
+        .btn-buy-now {
+            top: 73%;
+            right: 8%;
+            width: 25%;
+            height: 4%;
+            border-radius: 20px;
+        }
     </style>
 </head>
 <body>
 
-    <div class="background-canvas"></div>
+    <div class="dashboard-container">
+        <button class="btn btn-connect" onclick="alert('Connecting Wallet...')"></button>
+        
+        <button class="btn btn-claim" onclick="alert('Claiming $GREENDAYS...')"></button>
+        <button class="btn btn-bounty" onclick="alert('Pulling the Foil Legend...')"></button>
+        <button class="btn btn-gallery" onclick="alert('Opening Gallery...')"></button>
 
-    <div class="overlay-layer">
-        <button id="connectBtn" class="btn-connect"></button>
-
-        <div id="pack-price" class="live-text pos-price">...</div>
-
-        <div id="balance" class="live-text pos-balance">0</div>
-
-        <a href="https://vibe.market" class="btn-buy"></a>
+        <button class="btn btn-buy-now" onclick="alert('Redirecting to Buy VIBE FX...')"></button>
     </div>
 
-    <script>
-        const TOKEN = "0x30d24fc619f59f6f267ee884d802288e124b17c1";
-        async function connect() {
-            if (!window.ethereum) return;
-            const provider = new ethers.BrowserProvider(window.ethereum);
-            const accounts = await provider.send("eth_requestAccounts", []);
-            const contract = new ethers.Contract(TOKEN, ["function balanceOf(address) view returns (uint256)", "function decimals() view returns (uint8)"], provider);
-            const bal = await contract.balanceOf(accounts[0]);
-            const dec = await contract.decimals();
-            document.getElementById('balance').innerText = parseFloat(ethers.formatUnits(bal, dec)).toLocaleString();
-        }
-        document.getElementById('connectBtn').onclick = connect;
-    </script>
 </body>
 </html>
