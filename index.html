@@ -3,127 +3,129 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VIBE FX Dashboard</title>
+    <title>VIBE FX | Live Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.7.0/ethers.umd.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Inter:wght@400;900&display=swap" rel="stylesheet">
     <style>
-        body {
-            background-color: #000;
-            background-image: url('https://www.transparenttextures.com/patterns/stardust.png'); /* Splatter effect */
-            color: white;
-            font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
-        }
-
+        :root { --n-green: #b4ff39; --n-orange: #ff7e00; --n-blue: #22d3ee; --n-yellow: #fde047; }
+        body { background: #000; color: white; font-family: 'Inter', sans-serif; overflow-x: hidden; }
         .graffiti { font-family: 'Permanent Marker', cursive; }
-
-        /* Custom Drip Effect */
-        .drip-border {
-            position: relative;
-            border-bottom-width: 4px;
-        }
-        .drip-border::after {
-            content: '';
-            position: absolute;
-            bottom: -12px; left: 15%;
-            width: 4px; height: 15px;
-            border-radius: 0 0 5px 5px;
-            box-shadow: 20px 0 0 currentcolor, 45px 0 0 currentcolor, 80px 0 0 currentcolor;
-            background: currentcolor;
+        
+        /* The Paint Drip Effect */
+        .vibe-card { background: rgba(0,0,0,0.85); border: 3px solid; position: relative; border-radius: 1.5rem; }
+        .vibe-card::after {
+            content: ''; position: absolute; bottom: -18px; left: 0; right: 0; height: 20px;
+            background: currentColor; clip-path: polygon(10% 0%, 12% 100%, 15% 0%, 30% 0%, 32% 80%, 35% 0%, 60% 0%, 62% 90%, 65% 0%, 85% 0%, 87% 100%, 90% 0%);
         }
 
-        /* Glow Styles matching the image */
-        .glow-green { border: 3px solid #b4ff39; box-shadow: 0 0 20px #b4ff39, inset 0 0 10px #b4ff39; color: #b4ff39; }
-        .glow-orange { border: 3px solid #ff7e00; box-shadow: 0 0 20px #ff7e00, inset 0 0 10px #ff7e00; color: #ff7e00; }
-        .glow-blue { border: 3px solid #22d3ee; box-shadow: 0 0 20px #22d3ee, inset 0 0 10px #22d3ee; color: #22d3ee; }
-        .glow-main { border: 3px solid #eab308; box-shadow: 0 0 25px #eab308; }
-
-        .vibe-title {
-            font-size: 8rem;
-            line-height: 1;
-            text-shadow: 4px 4px 0px #ff0000;
-            -webkit-text-stroke: 2px white;
-        }
+        .glow-green { border-color: var(--n-green); color: var(--n-green); filter: drop-shadow(0 0 10px var(--n-green)); }
+        .glow-orange { border-color: var(--n-orange); color: var(--n-orange); filter: drop-shadow(0 0 10px var(--n-orange)); }
+        .glow-blue { border-color: var(--n-blue); color: var(--n-blue); filter: drop-shadow(0 0 10px var(--n-blue)); }
+        .glow-yellow { border-color: var(--n-yellow); color: var(--n-yellow); filter: drop-shadow(0 0 15px var(--n-yellow)); }
+        
+        .logo-main { font-size: clamp(4rem, 10vw, 7rem); -webkit-text-stroke: 2px white; text-shadow: 4px 4px 0px #ff0000; }
+        .bounty-locked { filter: grayscale(1) brightness(0.4); opacity: 0.6; pointer-events: none; }
     </style>
 </head>
-<body class="flex flex-col items-center py-10 px-4">
+<body class="flex flex-col items-center p-6 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')]">
 
-    <div class="text-center mb-6">
-        <h1 class="graffiti vibe-title uppercase tracking-tighter">VIBE FX</h1>
-        <div class="flex justify-center gap-1 mt-[-20px]">
-            <span class="text-red-600 text-4xl">💧</span>
-            <span class="text-yellow-400 text-4xl">💧</span>
-            <span class="text-blue-500 text-4xl">💧</span>
+    <div class="text-center mb-8">
+        <h1 class="graffiti logo-main italic uppercase tracking-tighter">VIBE FX</h1>
+        <button id="connectBtn" class="mt-6 px-10 py-2 border-2 border-cyan-400 rounded-full bg-black text-white font-bold shadow-[0_0_15px_#22d3ee] hover:scale-105 transition mx-auto">
+            Connect Wallet
+        </button>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-5xl mb-12">
+        <div class="vibe-card glow-green p-8 flex flex-col items-center text-center">
+            <div class="w-16 h-16 rounded-full border-4 border-current flex items-center justify-center mb-4"><span class="text-3xl">✔</span></div>
+            <h2 class="text-2xl font-black italic uppercase leading-tight">Claim<br>$GREENDAYS</h2>
+            <p class="text-white text-[10px] mt-2 font-bold opacity-70 tracking-widest">EARN CHECK-IN REWARDS</p>
+        </div>
+
+        <div id="bountyCard" class="vibe-card glow-orange p-8 flex flex-col items-center text-center bounty-locked">
+            <span id="bountyStatus" class="absolute -top-4 left-4 bg-zinc-800 text-white font-black px-3 py-1 rounded italic uppercase text-[10px]">Locked</span>
+            <div class="w-20 h-28 bg-gradient-to-b from-yellow-400 to-red-600 rounded-lg border-2 border-white mb-2 flex items-center justify-center">
+                <span class="text-[8px] font-black text-white">MYTHIC</span>
+            </div>
+            <h2 class="text-white text-2xl font-black italic uppercase leading-tight">Pull the<br>Foil Legend</h2>
+            <p class="text-orange-400 text-[9px] font-bold mt-1">REDEEM MYTHIC WORTH $4600</p>
+        </div>
+
+        <div onclick="window.location.href='/gallery'" class="vibe-card glow-blue p-8 flex flex-col items-center text-center cursor-pointer">
+            <div class="flex -space-x-8 mb-4">
+                <div class="w-14 h-20 bg-blue-900 border border-cyan-400 rounded rotate-[-10deg]"></div>
+                <div class="w-14 h-20 bg-blue-600 border-2 border-cyan-400 rounded z-10"></div>
+            </div>
+            <h2 class="text-white text-2xl font-black italic uppercase leading-tight">View Gallery</h2>
+            <p class="text-white text-[10px] mt-2 font-bold opacity-70 tracking-widest">SHOW YOUR VIBE FX CARDS</p>
         </div>
     </div>
 
-    <button id="connectBtn" class="mb-10 flex items-center gap-2 px-10 py-2 border-2 border-cyan-400 rounded-xl bg-black text-white font-bold shadow-[0_0_15px_#22d3ee] hover:scale-105 transition">
-        <span class="text-xl">📁</span> Connect Wallet
-    </button>
-
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-4xl mb-8">
-        
-        <div class="glow-green drip-border bg-black/60 rounded-3xl p-8 flex flex-col items-center text-center">
-            <div class="w-20 h-20 rounded-full border-4 border-current flex items-center justify-center mb-4">
-                <span class="text-4xl">✔</span>
-            </div>
-            <h2 class="text-2xl font-black uppercase italic leading-tight">Claim<br>$GREENDAYS</h2>
-            <p class="text-gray-300 text-sm mt-2 font-bold">Earn Check-In Rewards</p>
-        </div>
-
-        <div class="glow-orange drip-border bg-black/60 rounded-3xl p-8 flex flex-col items-center text-center relative">
-            <span class="absolute -top-4 left-4 bg-green-500 text-black font-black px-3 py-1 rounded italic uppercase text-sm rotate-[-5deg]">Bounty</span>
-            <div class="w-24 h-32 bg-gradient-to-b from-yellow-400 to-red-600 rounded-lg shadow-2xl mb-2 flex items-center justify-center border-2 border-white">
-                <span class="text-white font-black text-xs uppercase">Mythic</span>
-            </div>
-            <h2 class="text-white text-2xl font-black uppercase italic leading-tight">Pull the<br>Foil Legend</h2>
-            <p class="text-orange-400 text-[10px] font-bold mt-1 uppercase">Redeem the Mythic Worth $4600</p>
-        </div>
-
-        <div onclick="window.location.href='/gallery'" class="glow-blue drip-border bg-black/60 rounded-3xl p-8 flex flex-col items-center text-center cursor-pointer hover:bg-cyan-900/20">
-            <div class="flex -space-x-6 mb-4">
-                <div class="w-16 h-24 bg-blue-800 border-2 border-cyan-400 rounded-lg rotate-[-10deg]"></div>
-                <div class="w-16 h-24 bg-blue-600 border-2 border-cyan-400 rounded-lg z-10 shadow-xl"></div>
-            </div>
-            <h2 class="text-white text-2xl font-black uppercase italic leading-tight">View Gallery</h2>
-            <p class="text-gray-300 text-sm mt-2 font-bold">Show Your VIBE FX Cards</p>
-        </div>
-    </div>
-
-    <div class="glow-main w-full max-w-4xl rounded-[40px] bg-black/80 p-6 flex flex-wrap items-center justify-between border-4 border-yellow-400 relative">
-        <div class="flex items-center gap-4">
+    <div class="vibe-card glow-yellow w-full max-w-5xl p-6 flex flex-wrap items-center justify-between border-4">
+        <div class="flex items-center gap-6">
             <h2 class="graffiti text-5xl italic text-white drop-shadow-[2px_2px_0px_#ff0000]">VIBEX</h2>
             <div class="flex flex-col">
-                <span class="text-yellow-400 font-bold uppercase text-sm">Buy Vibe FX Collection</span>
-                <span class="text-white font-black text-xl">$vbfx: $0.084 <span class="text-yellow-400 ml-4 italic">★ Total Value: $9,750</span></span>
+                <span class="text-yellow-400 font-bold uppercase text-[10px]">VIBE FX Collection</span>
+                <span class="text-white font-black text-xl">
+                    Pack Price: <span id="pack-price-usd">$0.00</span> 
+                    <span class="text-yellow-400 ml-4">★ $vbfx Balance: <span id="balance">0</span></span>
+                </span>
             </div>
         </div>
-        <a href="https://vibechain.com/market/vibe-fx" target="_blank" class="bg-yellow-400 text-black px-10 py-3 rounded-full font-black text-xl hover:bg-yellow-300 shadow-lg uppercase italic flex items-center">
-            Buy Now <span class="ml-2">▶</span>
-        </a>
-    </div>
-
-    <div class="w-full max-w-4xl mt-6 p-4 border border-gray-800 rounded-2xl flex justify-around items-center bg-zinc-900/50 text-xl font-bold">
-        <div class="text-cyan-400"><span class="text-yellow-400">★</span> $vbfx: 120,300</div>
-        <div class="text-green-400">$ $: .084</div>
-        <div class="text-yellow-400">$ 9,750</div>
+        <a href="https://vibechain.com/market/vibe-fx" target="_blank" class="bg-yellow-400 text-black px-10 py-3 rounded-full font-black text-xl hover:scale-105 transition">BUY NOW ▶</a>
     </div>
 
     <script>
-        const btn = document.getElementById('connectBtn');
-        btn.onclick = async () => {
-            if (window.ethereum) {
-                const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-                // Base Mainnet Check
-                await window.ethereum.request({
-                    method: 'wallet_switchEthereumChain',
-                    params: [{ chainId: '0x2105' }], 
-                });
-                btn.innerHTML = "CONNECTED: " + accounts[0].slice(0,6) + "...";
-            } else {
-                alert("Install MetaMask!");
-            }
-        };
+        const TOKEN_ADDR = "0x30d24fc619f59f6f267ee884d802288e124b17c1";
+        const DROP_ADDR = "0xc7f2d8c035b2505f30a5417c0374ac0299d88553";
+        const PACK_COST_ETH = 0.005; // SET YOUR ACTUAL ETH PACK COST HERE
+
+        async function updatePackPrice() {
+            try {
+                const res = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd');
+                const data = await res.json();
+                const ethPrice = data.ethereum.usd;
+                const livePackUsd = (ethPrice * PACK_COST_ETH).toFixed(2);
+                document.getElementById('pack-price-usd').innerText = `$${livePackUsd}`;
+            } catch (e) { console.error("Price fetch failed"); }
+        }
+
+        async function init() {
+            if (!window.ethereum) return alert("Install MetaMask");
+            const provider = new ethers.BrowserProvider(window.ethereum);
+            const accounts = await provider.send("eth_requestAccounts", []);
+            const address = accounts[0];
+            
+            document.getElementById('connectBtn').innerText = address.slice(0,6) + "..." + address.slice(-4);
+
+            // 1. $VBFX Balance
+            const erc20Abi = ["function balanceOf(address) view returns (uint256)", "function decimals() view returns (uint8)"];
+            const tokenContract = new ethers.Contract(TOKEN_ADDR, erc20Abi, provider);
+            const balance = await tokenContract.balanceOf(address);
+            const decimals = await tokenContract.decimals();
+            document.getElementById('balance').innerText = parseFloat(ethers.formatUnits(balance, decimals)).toLocaleString();
+
+            // 2. Foil Check (Bounty)
+            const nftAbi = ["function balanceOf(address) view returns (uint256)"];
+            const nftContract = new ethers.Contract(DROP_ADDR, nftAbi, provider);
+            
+            try {
+                const nftBalance = await nftContract.balanceOf(address);
+                if (nftBalance > 0n) {
+                    const bc = document.getElementById('bountyCard');
+                    bc.classList.remove('bounty-locked');
+                    const bs = document.getElementById('bountyStatus');
+                    bs.innerText = "UNLOCKED";
+                    bs.className = "absolute -top-4 left-4 bg-green-500 text-black font-black px-3 py-1 rounded italic uppercase text-[10px]";
+                }
+            } catch (e) { console.log("NFT Check Failed"); }
+        }
+
+        document.getElementById('connectBtn').onclick = init;
+        updatePackPrice();
+        setInterval(updatePackPrice, 60000); // Update price every minute
     </script>
 </body>
 </html>
