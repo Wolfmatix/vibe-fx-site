@@ -3,117 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VIBE FX Dashboard</title>
+    <title>VIBE FX | Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.7.0/ethers.umd.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Kanit:ital,wght@1,900&display=swap" rel="stylesheet">
     <style>
-        body {
-            background-color: #000;
-            background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
-            color: white;
-            font-family: 'Kanit', sans-serif;
-            overflow-x: hidden;
-        }
-
+        body { background: #000; color: white; font-family: 'Kanit', sans-serif; overflow-x: hidden; }
         .graffiti { font-family: 'Permanent Marker', cursive; }
 
-        /* The Custom Drip Edge Shape */
-        .drip-container {
-            position: relative;
+        /* The Custom Rough Edge Filter */
+        .rough-edge { filter: url(#roughEdges); }
+        
+        .vibe-card {
             background: rgba(0, 0, 0, 0.9);
-            border: 4px solid;
+            border: 6px solid var(--glow-color);
             border-radius: 40px;
-            filter: drop-shadow(0 0 15px var(--glow-color));
-        }
-
-        /* SVG Filter for the "Rough/Drip" Border seen in the image */
-        .vibe-border {
-            border-image-source: linear-gradient(to bottom, var(--glow-color), var(--glow-color));
             position: relative;
+            box-shadow: 0 0 30px var(--glow-color); /* */
         }
 
-        .vibe-border::after {
-            content: '';
-            position: absolute;
-            bottom: -22px; left: 0; right: 0; height: 30px;
+        /* Paint Drip Pseudo-Element */
+        .vibe-card::after {
+            content: ''; position: absolute; bottom: -28px; left: 0; right: 0; height: 35px;
             background: var(--glow-color);
-            clip-path: polygon(5% 0%, 7% 100%, 10% 0%, 25% 0%, 28% 85%, 32% 0%, 50% 0%, 52% 95%, 55% 0%, 75% 0%, 78% 70%, 82% 0%, 92% 0%, 94% 90%, 97% 0%);
-        }
-
-        /* Card Overlap Styling */
-        .card-stack { position: relative; height: 120px; width: 100%; }
-        .card-stack div { 
-            position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
-            border-radius: 10px; border: 2px solid #22d3ee;
+            clip-path: polygon(10% 0%, 12% 100%, 15% 0%, 30% 0%, 33% 85%, 38% 0%, 60% 0%, 63% 95%, 68% 0%, 85% 0%, 88% 75%, 92% 0%); /* */
         }
 
         .main-logo {
-            font-size: 7rem;
-            line-height: 0.8;
+            font-size: clamp(4rem, 12vw, 8rem);
             -webkit-text-stroke: 3px white;
-            text-shadow: 6px 6px 0px #ff0000;
+            text-shadow: 8px 8px 0px #ff0000;
+        }
+
+        .card-overlap { position: relative; height: 140px; width: 100%; }
+        .card-overlap .layer { 
+            position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+            border-radius: 12px; border: 2px solid #22d3ee;
         }
     </style>
 </head>
-<body class="flex flex-col items-center p-8">
+<body class="flex flex-col items-center p-10 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')]">
 
-    <div class="text-center mb-12">
+    <svg style="position: absolute; width: 0; height: 0;">
+        <filter id="roughEdges">
+            <feTurbulence type="turbulence" baseFrequency="0.05" numOctaves="2" result="turb" />
+            <feDisplacementMap in2="turb" in="SourceGraphic" scale="7" />
+        </filter>
+    </svg>
+
+    <div class="text-center mb-16">
         <h1 class="graffiti main-logo uppercase italic tracking-tighter">VIBE FX</h1>
-        <div class="flex justify-center gap-2 -mt-2">
-            <span class="text-red-600 text-5xl">💧</span>
-            <span class="text-yellow-400 text-5xl">💧</span>
-            <span class="text-cyan-400 text-5xl">💧</span>
-        </div>
-        
-        <button id="connectBtn" class="mt-10 px-12 py-3 border-4 border-cyan-400 rounded-2xl bg-black text-white font-black italic shadow-[0_0_25px_#22d3ee] hover:scale-105 transition">
+        <button id="connectBtn" class="mt-8 px-14 py-4 border-4 border-cyan-400 rounded-2xl bg-black text-white font-black italic shadow-[0_0_30px_#22d3ee] hover:scale-105 transition">
             CONNECT WALLET
         </button>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-10 w-full max-w-6xl mb-16">
-        
-        <div class="drip-container vibe-border p-10 flex flex-col items-center text-center" style="--glow-color: #b4ff39; border-color: #b4ff39;">
-            <div class="w-24 h-24 rounded-full border-8 border-current flex items-center justify-center mb-6">
-                <span class="text-5xl text-white">✔</span>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-12 w-full max-w-6xl mb-20">
+        <div class="vibe-card rough-edge p-10 flex flex-col items-center text-center" style="--glow-color: #b4ff39;">
+            <div class="w-24 h-24 rounded-full border-8 border-white flex items-center justify-center mb-6">
+                <span class="text-5xl">✔</span>
             </div>
-            <h2 class="text-3xl font-black italic uppercase leading-none">Claim<br><span class="text-white">$GREENDAYS</span></h2>
-            <p class="text-white text-sm mt-4 font-bold opacity-80 uppercase tracking-widest">Earn Check-In Rewards</p>
+            <h2 class="text-4xl font-black italic uppercase leading-none">Claim<br><span class="text-white">$GREENDAYS</span></h2>
         </div>
 
-        <div id="bountyCard" class="drip-container vibe-border p-10 flex flex-col items-center text-center relative opacity-40 grayscale" style="--glow-color: #ff7e00; border-color: #ff7e00;">
-            <span class="absolute -top-6 left-6 bg-[#b4ff39] text-black font-black px-4 py-1 rounded italic uppercase text-lg rotate-[-5deg] z-20">BOUNTY</span>
-            <div class="w-28 h-40 bg-gradient-to-b from-yellow-400 to-red-600 rounded-xl border-2 border-white mb-4 shadow-2xl flex items-end p-2">
-                <div class="w-full bg-black/60 text-[10px] py-1 rounded">MYTHIC</div>
+        <div id="bountyCard" class="vibe-card rough-edge p-10 flex flex-col items-center text-center opacity-30 grayscale" style="--glow-color: #ff7e00;">
+            <span class="absolute -top-6 -left-4 bg-[#b4ff39] text-black font-black px-6 py-1 rounded italic uppercase text-xl rotate-[-5deg] z-20">BOUNTY</span>
+            <div class="w-28 h-40 bg-gradient-to-b from-yellow-400 to-red-600 rounded-xl border-4 border-white mb-4 shadow-2xl flex items-end p-2">
+                <div class="w-full bg-black/70 text-[10px] py-1 rounded">MYTHIC FOIL</div>
             </div>
             <h2 class="text-3xl font-black italic uppercase leading-none">Pull the<br><span class="text-white">Foil Legend</span></h2>
-            <p class="text-orange-400 text-xs mt-4 font-bold uppercase">Redeem Mythic Worth $4600</p>
         </div>
 
-        <div onclick="window.location.href='/gallery'" class="drip-container vibe-border p-10 flex flex-col items-center text-center cursor-pointer" style="--glow-color: #22d3ee; border-color: #22d3ee;">
-            <div class="card-stack mb-6">
-                <div class="w-20 h-28 bg-blue-900 rotate-[-15deg] mt-4 opacity-50"></div>
-                <div class="w-20 h-28 bg-blue-700 rotate-[-5deg] mt-2 opacity-80"></div>
-                <div class="w-20 h-28 bg-blue-500 z-10 border-4 shadow-2xl"></div>
+        <div class="vibe-card rough-edge p-10 flex flex-col items-center text-center cursor-pointer" style="--glow-color: #22d3ee;">
+            <div class="card-overlap mb-6">
+                <div class="layer w-24 h-32 bg-blue-900 rotate-[-15deg] mt-4 opacity-40"></div>
+                <div class="layer w-24 h-32 bg-blue-700 rotate-[-5deg] mt-2 opacity-70"></div>
+                <div class="layer w-24 h-32 bg-blue-500 z-10 border-4 shadow-2xl"></div>
             </div>
-            <h2 class="text-3xl font-black italic uppercase leading-none">View Gallery</h2>
-            <p class="text-white text-sm mt-4 font-bold opacity-80 uppercase tracking-widest">Show Your Vibe FX Cards</p>
+            <h2 class="text-4xl font-black italic uppercase leading-none">View Gallery</h2>
         </div>
     </div>
 
-    <div class="drip-container w-full max-w-6xl p-8 flex flex-wrap items-center justify-between border-4" style="--glow-color: #fde047; border-color: #fde047; border-radius: 60px;">
-        <div class="flex items-center gap-8">
-            <h2 class="graffiti text-7xl italic text-white drop-shadow-[4px_4px_0px_#ff0000]">VIBEX</h2>
+    <div class="vibe-card rough-edge w-full max-w-6xl p-10 flex flex-wrap items-center justify-between" style="--glow-color: #fde047;">
+        <div class="flex items-center gap-10">
+            <h2 class="graffiti text-8xl italic text-white drop-shadow-[5px_5px_0px_#ff0000]">VIBEX</h2>
             <div class="flex flex-col">
-                <span class="text-yellow-400 font-black uppercase text-sm tracking-widest">VIBE FX COLLECTION</span>
-                <span class="text-white font-black text-2xl uppercase italic">
-                    Live Pack Price: <span id="live-pack-price">Scraping...</span>
-                </span>
+                <span class="text-yellow-400 font-black uppercase text-lg tracking-widest">LIVE PACK PRICE</span>
+                <span id="live-pack-price" class="text-white font-black text-4xl uppercase italic">FETCHING...</span>
             </div>
         </div>
-        <div class="flex flex-col items-end gap-2">
-             <span class="text-yellow-400 font-black text-xl italic uppercase">Your Balance: <span id="balance">0</span> $vbfx</span>
-             <a href="https://vibechain.com/market/vibe-fx" target="_blank" class="bg-yellow-400 text-black px-12 py-4 rounded-full font-black text-2xl hover:bg-white transition uppercase italic shadow-2xl">BUY NOW ▶</a>
+        <div class="flex flex-col items-end gap-4">
+             <span class="text-yellow-400 font-black text-2xl italic uppercase">Balance: <span id="balance">0</span> $vbfx</span>
+             <a href="https://vibechain.com/market/vibe-fx" target="_blank" class="bg-yellow-400 text-black px-14 py-5 rounded-full font-black text-3xl hover:bg-white transition uppercase italic shadow-2xl">BUY NOW ▶</a>
         </div>
     </div>
 
@@ -122,18 +103,15 @@
         const DROP_ADDR = "0xc7f2d8c035b2505f30a5417c0374ac0299d88553";
         const MARKET_URL = "https://vibechain.com/market/vibe-fx";
 
-        // Precise Scraper for the VibeChain Price
         async function fetchLivePrice() {
             try {
                 const res = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(MARKET_URL)}`);
                 const data = await res.json();
                 const parser = new DOMParser();
                 const doc = parser.parseFromString(data.contents, 'text/html');
-                
-                // Target the exact price class on VibeChain
                 const priceElement = doc.querySelector('.text-2xl.font-bold') || doc.querySelector('[class*="price"]');
                 document.getElementById('live-pack-price').innerText = priceElement ? priceElement.innerText.trim() : "CHECK MARKET";
-            } catch (e) { document.getElementById('live-pack-price').innerText = "OFFLINE"; }
+            } catch (e) { document.getElementById('live-pack-price').innerText = "ERROR"; }
         }
 
         async function init() {
@@ -141,28 +119,21 @@
             const provider = new ethers.BrowserProvider(window.ethereum);
             const accounts = await provider.send("eth_requestAccounts", []);
             const address = accounts[0];
-            
-            document.getElementById('connectBtn').innerText = "CONNECTED: " + address.slice(0,6);
+            document.getElementById('connectBtn').innerText = "ADDR: " + address.slice(0,6);
 
-            // $VBFX Balance
-            const erc20Abi = ["function balanceOf(address) view returns (uint256)", "function decimals() view returns (uint8)"];
-            const tokenContract = new ethers.Contract(TOKEN_ADDR, erc20Abi, provider);
+            const tokenContract = new ethers.Contract(TOKEN_ADDR, ["function balanceOf(address) view returns (uint256)", "function decimals() view returns (uint8)"], provider);
             const balance = await tokenContract.balanceOf(address);
             const decimals = await tokenContract.decimals();
             document.getElementById('balance').innerText = parseFloat(ethers.formatUnits(balance, decimals)).toLocaleString();
 
-            // Bounty Check
             const nftContract = new ethers.Contract(DROP_ADDR, ["function balanceOf(address) view returns (uint256)"], provider);
             const nftBalance = await nftContract.balanceOf(address);
-            if (nftBalance > 0n) {
-                const bc = document.getElementById('bountyCard');
-                bc.classList.remove('opacity-40', 'grayscale');
-            }
+            if (nftBalance > 0n) document.getElementById('bountyCard').classList.remove('opacity-30', 'grayscale');
         }
 
         document.getElementById('connectBtn').onclick = init;
         fetchLivePrice();
-        setInterval(fetchLivePrice, 30000);
+        setInterval(fetchLivePrice, 45000);
     </script>
 </body>
 </html>
