@@ -2,76 +2,148 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>VIBE FX | STREET ART</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIBE FX DASHBOARD</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.7.0/ethers.umd.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Kanit:ital,wght@1,900&display=swap" rel="stylesheet">
     <style>
         body { 
-            background: #000; color: #fff; font-family: 'Kanit', sans-serif;
-            background-image: radial-gradient(circle at 50% 50%, #1a1a1a 0%, #000 100%);
-            overflow: hidden; height: 100vh; width: 100vw; margin: 0;
+            background: #000 url('https://www.transparenttextures.com/patterns/stardust.png'); 
+            color: #fff; font-family: 'Kanit', sans-serif;
+            min-height: 100vh; overflow-x: hidden;
+            display: flex; flex-direction: column; align-items: center;
         }
         .graffiti { font-family: 'Permanent Marker', cursive; }
 
-        /* NEON FLICKER ANIMATION */
-        @keyframes flicker {
-            0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100% { 
-                opacity: 1; box-shadow: 0 0 60px var(--neon), inset 0 0 30px var(--neon); 
-            }
-            20%, 21.999%, 63%, 63.999%, 65%, 69.999% { 
-                opacity: 0.4; box-shadow: 0 0 10px var(--neon), inset 0 0 5px var(--neon); 
-            }
+        /* Vibe FX Logo with Red Offset & Triple Drips */
+        .header-logo {
+            font-size: clamp(6rem, 15vw, 10rem); line-height: 0.8;
+            color: #fff; -webkit-text-stroke: 4px #000;
+            filter: drop-shadow(10px 10px 0px #ff0000);
+            position: relative;
         }
 
-        /* LOGO STICKER */
-        .header-sticker {
-            position: absolute; top: 10px; left: 50%; transform: translateX(-50%) rotate(-1.5deg);
-            font-size: clamp(6rem, 18vw, 11rem); line-height: 0.7; letter-spacing: -10px;
-            -webkit-text-stroke: 4px white;
-            filter: drop-shadow(15px 15px 0px #ff0000);
-            z-index: 10;
+        /* Neon Box Styling with Dripping Bottoms */
+        .vibe-box {
+            background: rgba(0, 0, 0, 0.95);
+            border: 8px solid var(--glow); border-radius: 45px;
+            box-shadow: 0 0 50px var(--glow), inset 0 0 25px var(--glow);
+            position: relative;
         }
 
-        /* NEON CARDS - With Flicker */
-        .vibe-card {
-            position: absolute; background: rgba(0,0,0,0.98);
-            border: 10px solid var(--neon); border-radius: 45px;
-            animation: flicker 4s infinite;
+        .paint-drip {
+            position: absolute; bottom: -45px; left: 0; right: 0; height: 60px;
+            background: var(--glow);
+            clip-path: polygon(10% 0%, 12% 100%, 15% 0%, 28% 0%, 31% 85%, 34% 0%, 55% 0%, 58% 95%, 62% 0%, 80% 0%, 83% 75%, 87% 0%, 93% 0%, 95% 85%, 98% 0%);
         }
 
-        .vibe-card::after {
-            content: ''; position: absolute; bottom: -55px; left: 0; right: 0; height: 60px;
-            background: var(--neon);
-            clip-path: polygon(8% 0%, 10% 100%, 15% 0%, 25% 0%, 28% 90%, 32% 0%, 50% 0%, 53% 95%, 57% 0%, 75% 0%, 78% 80%, 82% 0%, 90% 0%, 93% 90%, 97% 0%);
+        /* Large Vibe FX Footer Bar (No VIBEX, No Fake Stats) */
+        .footer-bar {
+            border: 10px solid #b4ff39; border-radius: 90px;
+            background: #000; box-shadow: 0 0 60px #b4ff39;
+            padding: 40px 80px; width: 95%; max-width: 1400px;
+            display: flex; align-items: center; justify-content: space-between;
+            margin-top: auto; margin-bottom: 40px;
         }
 
-        /* ABSOLUTE COORDINATES (Manual Overlay) */
-        .pos-claim { top: 32%; left: 3%; width: 370px; transform: rotate(-8deg); z-index: 20; }
-        .pos-bounty { top: 22%; left: 50%; transform: translateX(-50%) scale(1.25); width: 410px; z-index: 50; }
-        .pos-gallery { top: 32%; right: 3%; width: 370px; transform: rotate(8deg); z-index: 20; }
-
-        .buy-now-btn {
-            background: #b4ff39; color: #000;
-            box-shadow: 0 0 40px #b4ff39;
-        }
-        .buy-now-btn:hover {
-            animation: flicker 0.2s infinite; /* Rapid flicker on hover */
-            background: #fff;
+        .footer-logo {
+            font-size: 8rem; color: white; -webkit-text-stroke: 3px black;
+            filter: drop-shadow(10px 10px 0px #ff0000);
         }
 
-        .vibe-footer {
-            position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
-            width: 96%; height: 210px; background: #000;
-            border: 15px solid #b4ff39; border-radius: 110px;
-            box-shadow: 0 0 80px #b4ff39;
-            padding: 0 100px; display: flex; align-items: center; justify-content: space-between;
-            z-index: 100;
+        .bounty-tag {
+            position: absolute; top: -30px; left: -10px; 
+            background: #b4ff39; color: #000; 
+            padding: 8px 25px; border-radius: 5px; 
+            transform: rotate(-12deg); font-weight: 900; z-index: 30;
+            font-size: 1.5rem;
         }
     </style>
 </head>
-<body>
+<body class="p-10">
 
-    <h1 class="graffiti header-sticker italic uppercase">Vibe FX</h1>
-    
-    <div style="
+    <div class="text-center mb-24">
+        <h1 class="graffiti header-logo italic uppercase">Vibe FX</h1>
+        <div class="flex justify-center gap-4 -mt-4">
+            <div class="w-10 h-16 bg-red-600 rounded-full" style="clip-path: ellipse(40% 100% at 50% 0%);"></div>
+            <div class="w-10 h-16 bg-blue-500 rounded-full" style="clip-path: ellipse(40% 100% at 50% 0%);"></div>
+            <div class="w-10 h-16 bg-yellow-400 rounded-full" style="clip-path: ellipse(40% 100% at 50% 0%);"></div>
+        </div>
+        <button id="connectBtn" class="mt-12 px-16 py-5 border-4 border-cyan-400 rounded-3xl bg-black text-white font-black italic shadow-[0_0_40px_#22d3ee] uppercase text-3xl">
+            Connect Wallet
+        </button>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-16 w-full max-w-7xl px-4">
+        
+        <div class="vibe-box p-16 flex flex-col items-center" style="--glow: #b4ff39;">
+            <div class="w-28 h-28 rounded-full border-8 border-white flex items-center justify-center mb-8">
+                <span class="text-7xl">✔</span>
+            </div>
+            <h2 class="text-5xl font-black italic uppercase text-center leading-none">Claim<br><span class="text-white">$GREENDAYS</span></h2>
+            <div class="paint-drip" style="--glow: #b4ff39;"></div>
+        </div>
+
+        <div class="vibe-box p-16 flex flex-col items-center scale-110" style="--glow: #ff7e00;">
+            <div class="bounty-tag">BOUNTY</div>
+            <div class="w-48 h-64 bg-gradient-to-br from-orange-500 to-red-600 border-4 border-white rounded-2xl shadow-2xl mb-8"></div>
+            <h2 class="text-4xl font-black italic uppercase text-center leading-none">Pull the<br>Foil Legend</h2>
+            <div class="paint-drip" style="--glow: #ff7e00;"></div>
+        </div>
+
+        <div class="vibe-box p-16 flex flex-col items-center" style="--glow: #22d3ee;">
+            <div class="relative w-full h-40 mb-10 flex justify-center">
+                <div class="w-28 h-40 bg-blue-900 border-4 border-white rounded-xl rotate-[-15deg] absolute translate-x-[-20px]"></div>
+                <div class="w-28 h-40 bg-blue-600 border-4 border-white rounded-xl rotate-[15deg] absolute translate-x-[20px]"></div>
+            </div>
+            <h2 class="text-5xl font-black italic uppercase text-center leading-none">View Gallery</h2>
+            <div class="paint-drip" style="--glow: #22d3ee;"></div>
+        </div>
+    </div>
+
+    <div class="footer-bar">
+        <div class="flex items-center gap-16">
+            <h2 class="graffiti footer-logo italic uppercase">Vibe FX</h2>
+            <div class="flex flex-col">
+                <span class="text-yellow-400 font-black text-2xl uppercase tracking-[0.2em]">PACK PRICE</span>
+                <span id="pack-price" class="text-white font-black text-7xl italic uppercase tracking-tighter">FETCHING...</span>
+            </div>
+        </div>
+        <div class="flex flex-col items-end gap-6">
+            <p class="text-yellow-400 font-black text-5xl italic uppercase">Balance: <span id="balance" class="text-white">0</span> $VBFX</p>
+            <a href="https://vibechain.com/market/vibe-fx" target="_blank" class="bg-yellow-400 text-black px-24 py-10 rounded-full font-black text-6xl italic hover:bg-white transition shadow-2xl uppercase">BUY NOW ▶</a>
+        </div>
+    </div>
+
+    <script>
+        const TOKEN = "0x30d24fc619f59f6f267ee884d802288e124b17c1";
+        
+        async function fetchPrice() {
+            try {
+                const res = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent("https://vibechain.com/market/vibe-fx")}`);
+                const data = await res.json();
+                const doc = new DOMParser().parseFromString(data.contents, 'text/html');
+                const price = doc.querySelector('.text-2xl.font-bold') || doc.querySelector('[class*="price"]');
+                document.getElementById('pack-price').innerText = price ? price.innerText.trim() : "CHECK MARKET";
+            } catch (e) { document.getElementById('pack-price').innerText = "ERROR"; }
+        }
+
+        async function init() {
+            if (!window.ethereum) return;
+            const provider = new ethers.BrowserProvider(window.ethereum);
+            const accounts = await provider.send("eth_requestAccounts", []);
+            document.getElementById('connectBtn').innerText = accounts[0].slice(0,12);
+            
+            const contract = new ethers.Contract(TOKEN, ["function balanceOf(address) view returns (uint256)", "function decimals() view returns (uint8)"], provider);
+            const bal = await contract.balanceOf(accounts[0]);
+            const dec = await contract.decimals();
+            document.getElementById('balance').innerText = parseFloat(ethers.formatUnits(bal, dec)).toLocaleString();
+        }
+
+        document.getElementById('connectBtn').onclick = init;
+        fetchPrice();
+        setInterval(fetchPrice, 30000);
+    </script>
+</body>
+</html>
