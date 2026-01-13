@@ -2,110 +2,110 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>VIBE FX DASHBOARD</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIBE FX | STREET ART</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.7.0/ethers.umd.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Kanit:ital,wght@1,900&display=swap" rel="stylesheet">
     <style>
         body { 
-            background: #000; color: #fff; font-family: 'Kanit', sans-serif;
-            background-image: radial-gradient(circle at 50% 50%, #1a1a1a 0%, #000 100%);
-            overflow: hidden; height: 100vh; width: 100vw; margin: 0;
+            background: #000 url('https://www.transparenttextures.com/patterns/stardust.png'); 
+            color: #fff; font-family: 'Kanit', sans-serif;
+            min-height: 100vh; margin: 0; padding: 1rem;
         }
         .graffiti { font-family: 'Permanent Marker', cursive; }
 
-        /* VIBE FX LOGO: Massive 3D Sticker style */
-        .logo-sticker {
-            position: absolute; top: 15px; left: 50%; transform: translateX(-50%) rotate(-1.5deg);
-            font-size: clamp(6rem, 18vw, 11rem); line-height: 0.7; letter-spacing: -10px;
-            -webkit-text-stroke: 4px white;
-            filter: drop-shadow(15px 15px 0px #ff0000);
-            z-index: 100;
+        /* VIBE FX LOGO: Heavy red shadow sticker */
+        .logo-main {
+            font-size: clamp(4rem, 12vw, 10rem); line-height: 0.8;
+            -webkit-text-stroke: 2px white;
+            filter: drop-shadow(8px 8px 0px #ff0000);
+            transform: rotate(-2deg);
         }
 
-        /* TRIPLE SPRAY DRIPS */
-        .drip-effect {
-            position: absolute; top: 170px; left: 50%; transform: translateX(-50%);
-            display: flex; gap: 15px; z-index: 105;
+        /* NEON CARDS: Irregular drip bottoms */
+        .neon-sticker {
+            background: rgba(0,0,0,0.95);
+            border: 6px solid var(--clr); border-radius: 30px;
+            box-shadow: 0 0 40px var(--clr), inset 0 0 20px var(--clr);
+            position: relative;
         }
-        .drop { width: 30px; height: 70px; border-radius: 0 0 40px 40px; }
-
-        /* COLLAGE CARDS: Fixed positioning to force overlapping */
-        .vibe-card {
-            position: absolute; background: rgba(0,0,0,0.98);
-            border: 10px solid var(--neon); border-radius: 45px;
-            box-shadow: 0 0 60px var(--neon), inset 0 0 30px var(--neon);
-        }
-
-        /* The irregular paint-run at the bottom of boxes */
-        .vibe-card::after {
-            content: ''; position: absolute; bottom: -55px; left: 0; right: 0; height: 60px;
-            background: var(--neon);
-            clip-path: polygon(8% 0%, 10% 100%, 15% 0%, 25% 0%, 28% 90%, 32% 0%, 50% 0%, 53% 95%, 57% 0%, 75% 0%, 78% 80%, 82% 0%, 90% 0%, 93% 90%, 97% 0%);
+        .neon-sticker::after {
+            content: ''; position: absolute; bottom: -35px; left: 0; right: 0; height: 40px;
+            background: var(--clr);
+            clip-path: polygon(10% 0%, 12% 100%, 15% 0%, 28% 0%, 31% 85%, 34% 0%, 55% 0%, 58% 95%, 62% 0%, 80% 0%, 83% 75%, 87% 0%, 93% 0%, 95% 85%, 98% 0%);
         }
 
-        /* Exact Layout Map */
-        .pos-claim { top: 32%; left: 4%; width: 380px; transform: rotate(-7deg); z-index: 10; }
-        .pos-bounty { top: 25%; left: 50%; transform: translateX(-50%) scale(1.2); width: 420px; z-index: 50; }
-        .pos-gallery { top: 32%; right: 4%; width: 380px; transform: rotate(7deg); z-index: 10; }
+        /* Responsive Collage Adjustments */
+        @media (min-width: 768px) {
+            .collage-item:nth-child(1) { transform: rotate(-5deg); margin-top: 40px; }
+            .collage-item:nth-child(2) { transform: scale(1.1); z-index: 50; }
+            .collage-item:nth-child(3) { transform: rotate(5deg); margin-top: 40px; }
+        }
 
-        /* THE VIBE FX FOOTER: Zero Fake Stats */
-        .vibe-footer {
-            position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
-            width: 96%; height: 210px; background: #000;
-            border: 14px solid #b4ff39; border-radius: 110px;
-            box-shadow: 0 0 80px #b4ff39;
-            padding: 0 100px; display: flex; align-items: center; justify-content: space-between;
+        /* Footer */
+        .footer-sticker {
+            border: 8px solid #b4ff39; border-radius: 60px;
+            background: #000; box-shadow: 0 0 50px #b4ff39;
+            padding: 1.5rem 3rem; width: 100%;
         }
     </style>
 </head>
-<body>
+<body class="flex flex-col items-center">
 
-    <h1 class="graffiti logo-sticker italic uppercase">Vibe FX</h1>
-    <div class="drip-effect">
-        <div class="drop bg-red-600 shadow-[0_0_20px_red]"></div>
-        <div class="drop bg-blue-500 shadow-[0_0_20px_blue]"></div>
-        <div class="drop bg-yellow-400 shadow-[0_0_20px_yellow]"></div>
-    </div>
-    
-    <div style="position: absolute; top: 210px; left: 50%; transform: translateX(-50%); z-index: 101;">
-        <button id="connectBtn" class="px-16 py-5 border-4 border-cyan-400 rounded-full bg-black text-cyan-400 font-black italic shadow-[0_0_40px_#22d3ee] uppercase text-3xl">
+    <div class="text-center my-10 md:my-16 relative z-10">
+        <h1 class="graffiti logo-main italic uppercase">Vibe FX</h1>
+        <div class="flex justify-center gap-3 -mt-2">
+            <div class="w-6 h-10 bg-red-600 rounded-full" style="clip-path: ellipse(40% 100% at 50% 0%);"></div>
+            <div class="w-6 h-10 bg-blue-500 rounded-full" style="clip-path: ellipse(40% 100% at 50% 0%);"></div>
+            <div class="w-6 h-10 bg-yellow-400 rounded-full" style="clip-path: ellipse(40% 100% at 50% 0%);"></div>
+        </div>
+        <button id="connectBtn" class="mt-8 px-8 py-3 border-4 border-cyan-400 rounded-2xl bg-black text-cyan-400 font-black italic shadow-[0_0_30px_#22d3ee] uppercase text-xl">
             CONNECT WALLET
         </button>
     </div>
 
-    <div class="vibe-card pos-claim p-14 flex flex-col items-center" style="--neon: #b4ff39;">
-        <div class="w-32 h-32 rounded-full border-8 border-white flex items-center justify-center mb-8 shadow-2xl">
-            <span class="text-8xl text-white font-black">✔</span>
-        </div>
-        <h2 class="text-5xl font-black italic uppercase leading-none text-center">Claim<br><span class="text-white">$GREENDAYS</span></h2>
-    </div>
-
-    <div class="vibe-card pos-bounty p-16 flex flex-col items-center" style="--neon: #ff7e00;">
-        <span class="absolute -top-12 -left-12 bg-[#b4ff39] text-black font-black px-12 py-3 rounded italic uppercase text-5xl rotate-[-15deg] z-20 shadow-lg">BOUNTY</span>
-        <div class="w-44 h-60 bg-gradient-to-br from-orange-500 via-yellow-300 to-red-600 border-4 border-white rounded-2xl shadow-[0_0_50px_#ff7e00] mb-8 rotate-[4deg]"></div>
-        <h2 class="text-4xl font-black italic uppercase leading-none text-center">Pull the<br><span class="text-white">Foil Legend</span></h2>
-    </div>
-
-    <div class="vibe-card pos-gallery p-14 flex flex-col items-center" style="--neon: #22d3ee;">
-        <div class="relative w-full h-40 mb-10 flex justify-center">
-            <div class="w-28 h-40 bg-blue-900 border-2 border-white rounded-xl rotate-[-15deg] opacity-40"></div>
-            <div class="w-28 h-40 bg-blue-600 border-4 border-white rounded-xl shadow-2xl absolute"></div>
-        </div>
-        <h2 class="text-5xl font-black italic uppercase leading-none text-center">View Gallery</h2>
-    </div>
-
-    <div class="vibe-footer">
-        <div class="flex items-center gap-16">
-            <h2 class="graffiti text-[11rem] italic text-white drop-shadow-[15px_15px_0px_#ff0000] leading-none">Vibe FX</h2>
-            <div class="flex flex-col">
-                <span class="text-yellow-400 font-black uppercase text-2xl tracking-[.4em]">LIVE PACK PRICE</span>
-                <span id="pack-price" class="text-white font-black text-8xl italic uppercase tracking-tighter">...</span>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-8 w-full max-w-7xl px-4 mb-24">
+        
+        <div class="collage-item">
+            <div class="neon-sticker p-10 flex flex-col items-center" style="--clr: #b4ff39;">
+                <div class="w-20 h-20 rounded-full border-8 border-white flex items-center justify-center mb-6 shadow-lg">
+                    <span class="text-5xl text-white font-black">✔</span>
+                </div>
+                <h2 class="text-4xl font-black italic uppercase leading-none text-center">Claim<br><span class="text-white">$GREENDAYS</span></h2>
             </div>
         </div>
-        <div class="flex flex-col items-end gap-6">
-            <p class="text-yellow-400 font-black text-6xl italic uppercase">Balance: <span id="balance" class="text-white">0</span> $VBFX</p>
-            <a href="https://vibechain.com/market/vibe-fx" target="_blank" class="bg-yellow-400 text-black px-24 py-10 rounded-full font-black text-7xl italic hover:bg-white transition shadow-2xl uppercase">BUY NOW ▶</a>
+
+        <div class="collage-item">
+            <div class="neon-sticker p-10 flex flex-col items-center" style="--clr: #ff7e00;">
+                <span class="absolute -top-8 -left-6 bg-[#b4ff39] text-black font-black px-6 py-1 rounded italic uppercase text-2xl rotate-[-10deg] z-20 shadow-md">BOUNTY</span>
+                <div class="w-40 h-52 bg-gradient-to-br from-orange-500 via-yellow-300 to-red-600 border-4 border-white rounded-2xl mb-6 shadow-2xl"></div>
+                <h2 class="text-3xl font-black italic uppercase leading-none text-center">Pull the<br><span class="text-white">Foil Legend</span></h2>
+            </div>
+        </div>
+
+        <div class="collage-item">
+            <div class="neon-sticker p-10 flex flex-col items-center" style="--clr: #22d3ee;">
+                <div class="relative w-full h-28 mb-8 flex justify-center">
+                    <div class="w-20 h-28 bg-blue-900 border-2 border-white rounded-xl rotate-[-15deg] opacity-40"></div>
+                    <div class="w-20 h-28 bg-blue-600 border-4 border-white rounded-xl absolute shadow-2xl"></div>
+                </div>
+                <h2 class="text-4xl font-black italic uppercase leading-none text-center">View Gallery</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-sticker flex flex-col md:flex-row items-center justify-between gap-6 max-w-7xl mb-10">
+        <div class="flex flex-col md:flex-row items-center gap-6 md:gap-12">
+            <h2 class="graffiti text-6xl md:text-8xl italic text-white drop-shadow-[8px_8px_0px_#ff0000]">Vibe FX</h2>
+            <div class="flex flex-col items-center md:items-start">
+                <span class="text-yellow-400 font-black text-sm md:text-xl uppercase tracking-widest">Live Pack Price</span>
+                <span id="pack-price" class="text-white font-black text-4xl md:text-7xl italic tracking-tighter uppercase">FETCHING...</span>
+            </div>
+        </div>
+        <div class="flex flex-col items-center md:items-end gap-2 w-full md:w-auto">
+            <p class="text-yellow-400 font-black text-2xl md:text-4xl italic uppercase">Balance: <span id="balance" class="text-white">0</span> $VBFX</p>
+            <a href="https://vibechain.com/market/vibe-fx" target="_blank" class="bg-yellow-400 text-black w-full md:w-auto px-10 py-5 rounded-full font-black text-2xl md:text-5xl italic shadow-2xl hover:bg-white transition uppercase text-center">BUY NOW ▶</a>
         </div>
     </div>
 
@@ -117,14 +117,14 @@
                 const data = await res.json();
                 const doc = new DOMParser().parseFromString(data.contents, 'text/html');
                 const price = doc.querySelector('.text-2xl.font-bold') || doc.querySelector('[class*="price"]');
-                document.getElementById('pack-price').innerText = price ? price.innerText.trim() : "MARKET";
+                document.getElementById('pack-price').innerText = price ? price.innerText.trim() : "CHECK MARKET";
             } catch (e) { document.getElementById('pack-price').innerText = "ERROR"; }
         }
         async function connect() {
             if (!window.ethereum) return;
             const provider = new ethers.BrowserProvider(window.ethereum);
             const accounts = await provider.send("eth_requestAccounts", []);
-            document.getElementById('connectBtn').innerText = accounts[0].slice(0,12);
+            document.getElementById('connectBtn').innerText = accounts[0].slice(0,10) + "...";
             const contract = new ethers.Contract(TOKEN, ["function balanceOf(address) view returns (uint256)", "function decimals() view returns (uint8)"], provider);
             const bal = await contract.balanceOf(accounts[0]);
             const dec = await contract.decimals();
@@ -132,6 +132,7 @@
         }
         document.getElementById('connectBtn').onclick = connect;
         fetchPrice();
+        setInterval(fetchPrice, 30000);
     </script>
 </body>
 </html>
